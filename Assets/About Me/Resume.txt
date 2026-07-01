@@ -1,0 +1,108 @@
+Hi, <:OU_Red:1277303358767763458> ! I'm Thoria. I'm a 20 year old Minecraft server Administrator and Media Manager with 3 years of experience. I manage networks with 400 to 1000 players simultaneously. I manage staff teams of up to 50 people, oversee more than 30 content creators across multiple servers, and develop internal tools to ensure the smooth operation of moderation, payments, and content creator programs.
+
+I'm open to paid or volunteer work in staff, media, and general management positions.
+
+## Who am I
+
+- I'm located in EU · Turkey. I have flexible working hours and can work in different time-zones.
+- Turkish (native) · English (also practically native atp).
+- I have over three years of server administration & management experience, currently managing ArchMC and VoidSentMC.
+- I'm known as an active manager. I listen to feedback from staff and content creators. I personally interview and guide the accepted staff and address their issues directly.
+- What sets me apart from most administrators is my focus on building reliable programs & systems that others can trust. (See Projects section.)
+
+## Look-over
+
+> • Over three years of server management with over 1k+ users online simultaneously
+> • Managed over 30 content creators and moderated over 42,000 Discord users.
+> • Handled over 600 support tickets and administrated around 2,700 punishments.
+> • Professionally documented over 100 bugs in clear language and conducted almost 100 manual screen-sharing sessions
+> • Managed staff teams of up to 50 members
+
+## Why Me?
+
+- I don't just follow procedures; I create the policy. I built ArchMC's official Community Guidelines from scratch.
+- I make payment systems easier. I developed a JavaScript program that allocates payments for content creators.
+- I develop the tools I use. I developed a media management panel called Kleos because I was managing Media and client-side anti-cheat software called Iustitia because... why not?
+- I have a strong understanding of anti-cheats. I've worked with Polar, Vulcan, and Grim; and studied open-source anti-cheat clients like LiquidBounce and Raven B+ to learn how cheats are created.
+- I'm accessible. I keep the number of servers I manage specifically limited so I can fully focus on each one.
+
+## Provided Services: ##
+
+### Staff Management
+
+> • Recruitment, interviews, and Basic Startup - I authorize ArchMC's orientation process
+> • Management and supervision of staff teams up to 50 people: tracking activity, goal settings with performance prizes, and evaluations of performance
+> • Creating staff documents, I can create professional staff guidelines
+> • Training new staff through  mentoring
+> • Solving problems direct and clear
+> • Conflict resolution, consistent rule enforcement
+> • Chat moderation
+> • Moderation of Unfair advantages: anti-cheat knowledge (Polar, Vulcan, Grim), evidence based punishments, and screensharing with Echo & Ocean
+> • Handling appeals and punishment tickets on scale
+> • Writing policies: staff handbooks and community guidelines
+
+### Media Management
+
+> • Management of paid / voluntary content creator programs: activity tracking, budget allocation, and Payment Processing
+> • Systematic payments for content creators using a observable.js 
+> • Reviewing content creator posts: verifying social media accounts and looking over their current status, including past penalties and chat history
+> • Keeping content creators engaged with the server, ensuring constant media coverage
+> • Organizing media events, themed collaborations, and celebrating milestones together
+> • Assigning and editing content creator roles
+> • Tracking content creators using Kleos (see Projects section)
+> • Creating shareable HTML media reports (also through Kleos), though I still prefer the copy-paste reports since they are a lot more convenient.
+
+### General Management
+
+> • Overseeing daily server tasks and coordinating teams around the moderation team
+> • Managing support tickets across all categories (appeals, player reports, bug reports, store tickets (the worst one))
+> • Documenting bugs and communicating with developers - I documented over 100 bugs and reported back professional audit checks developers.
+> • Organizing the discord server in order to remove clutter.
+> • Communicating with the community, feedback is really important.
+> • Helping the build team or making over-due small map improvements.
+
+## Projects I've worked on.
+
+I'm working on tools I wish I had before I started. Two of them are currently available:
+
+Kleos - [GitHub ↗](https://github.com/ThoriaDevelopment/Kleos)
+
+> This media management dashboard tracks every content creator in a community from a single dashboard. It shows who's actively creating content and how their content is performing without the need for spreadsheets. Kleos pulls data from YouTube and Twitch API's, marks which uploads belong to your server (using keywords or AI auto-detection), ranks creators on a leaderboard, creates shareable community boards, and alerts you when a creator reaches a subscriber count. It works completely offline once the needed data is retrieved and allows you to create separate profiles for different communities. It aims to simplify managing more than 30 creators on different servers at the same time.
+
+Iustitia - [GitHub ↗](https://github.com/ThoriaDevelopment/Iustitia) · [Web ↗](https://thoriadevelopment.github.io/Iustitia/)
+
+> A fully client-sided anti-cheat for Minecraft 1.21.11 (Fabric). It monitors other players on your instance and flags impossible interactions like placing blocks from too far away, phasing through walls, flying, or running backwards... 32 different fully fletched checks in a client-based anticheat. It only sends alerts in chat (unless you enable /IUS verbose ) and marks suspects with name tag prefixes. It never bans (obviously), reports, or sends data elsewhere. Think of it as a radar that silently gives warnings to you. I developed this not only to give non-staff members a tool to not false-hackusate other players, but also to demonstrate my ability to understand how cheats work at the packet level. ITS CURRENTLY IN BETA.
+
+## Experience
+
+Current
+
+- ArchMC Network - Administrator and Media Manager · 2024–2026 · ~1,000 average players / 42,000+ Discord
+- VoidSentMC Network - Builder and Administrator · 2025–2026 · ~250 average players / 3,500 Discord
+- ArchMC Tier Tests - Administrator · Owner iiskinny
+- ArchMC is owned by Rule Your Own Game, the creators of EaglerCraft.
+
+Past
+
+- Rift SMP - Administrator (2025) : founding member; organized weekly events for 6 weeks
+- PurbleMC - Head Administrator (~2021) : Owner Keonhaplayz; Currently inactive
+
+## Pricing and Availability
+
+> • Free for servers I'm personally interested in, as this is a hobby I care about.
+> • Otherwise Paid, with a negotiable fee discussed in DMs.
+> • I limit my staffing roles to at most 4 to be able to focus on each server.
+
+## References
+
+> • Velt — ArchMC Administrator · Discord <@221025167684403202>
+> • MacDonald — VoidSentMC Administrator · Discord <@1063895717346820128>
+> • Namen — ArchMC Senior Moderator · Discord <@1105363437929898135>
+> • Sencinion — DuckyMC Owner · Discord <@1402708145025056820>
+
+## Where to Reach Me
+
+> Discord - <@1284495349267959828>
+> Email - officialthoria@gmail.com
+> GitHub - [github.com/thoriadevelopment](https://github.com/thoriadevelopment)
+> YouTube - [youtube.com/@inrisings](https://youtube.com/@inrisings)

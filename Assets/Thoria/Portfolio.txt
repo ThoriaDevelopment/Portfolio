@@ -1,0 +1,51 @@
+NAME:
+Thoria
+
+TITLE/TAGLINE:
+Minecraft Server Administrator & Media Manager
+
+LOCATION:
+EU, Turkey
+
+EMAIL:
+officialthoria@gmail.com
+
+SOCIALS:
+Discord: @inrising 
+Youtube: youtube.com/@inrisings
+GitHub: github.com/thoriadevelopment
+
+BIO:            
+Total of 3 years of experience, I've managed Minecraft servers between 400+ and 1000+ average players online at any point. 
+I Have personally developed a media management tool "Kleos" Which tracks multiple creators between multiple servers at one dashboard.
+Managed over 30 content creators so far. I'm known for being a true "reachable" management member.
+
+EXPERIENCE:     
+Administrator & Media Manager · ArchMC Network · 2024-2026 · avg. 1k players
+- Moderated 42k+ discord members
+- Documented 100+ bugs, including critical ones.
+- Managed a staff team of 22 people, Not including 8 commissioned builders and 2 partnered paid creators.
+- Created a systematic payment system that allocates payouts for media creators via a java script algorithm.
+- One of the few allocated Screensharers in ArchMC, Personally ran screenshares w/ Ocean and Echo around 70 times.
+- Dealt with 600+ tickets
+- Total punishment count is around 2500.
+- Wrote the current official Community Guidelines for ArchMC Network.
+Builder & Administrator · VoidSentMC Network · 2025-2026 · avg. 250 players
+- Moderated 3500+ discord members
+- Documented 15+ bugs, including critical ones.
+- Managed a staff team of 19 people, including 3 voluntary builders.
+- Dealt with 50+ tickets
+- Total punishment count is around 200.
+- Finalized a total of 5 build projects.
+
+SKILL DETAILS:  
+- Experience with Polar, Vulcan & Grim Anticheat, Having directly went through Grim's Source code.
+- Went through Open-Sourced Hacked Clients like Doomsday & Raven B+ To understand how cheat developers find out bypasses.
+- Experience in Screenshares against alleged cheaters using Echo & Ocean
+- Fluently speak 2 languages, with 7 years of English courses and Turkish as the main language.
+- Constant tracking of Media Members & Creators, Accurate budget allocating between members.
+- Months of experience in managing staff members.
+- Interviewing and personally guiding new staff members when possible.
+- General Experience in Python.
+- Developer of Kleos (github.com/thoriadevelopment/Kleos)
+

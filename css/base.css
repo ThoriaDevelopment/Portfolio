@@ -1,0 +1,281 @@
+/* =====================================================
+   BASE LAYOUT — viewport, sections, nav, buttons, type
+   ===================================================== */
+
+/* ---------- viewport / camera / tracks ----------
+   Single source of truth lives in css/scroll.css.
+   Keep only layout primitives here. ---------- */
+
+/* ---------- nav ---------- */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 18px 0;
+  mix-blend-mode: difference;
+  color: #fff;
+  pointer-events: none;
+}
+
+.nav-inner {
+  width: min(var(--maxw), 92vw);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  pointer-events: auto;
+}
+
+.brand {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+}
+
+.nav-link {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  outline: none;
+}
+
+.nav-link:focus-visible .hover-swap-wrap {
+  box-shadow: 0 0 0 2px var(--mood-accent);
+  border-radius: 2px;
+}
+
+.btn-sm {
+  padding: 8px 14px;
+  font-size: 0.7rem;
+}
+
+@media (max-width: 720px) {
+  .nav { position: absolute; }
+  .nav-links { display: none; }
+  .nav-inner { padding: 0 4vw; }
+  .brand { font-size: 1rem; }
+  .btn-sm { padding: 6px 10px; font-size: 0.65rem; }
+}
+
+/* ---------- typography ---------- */
+.display-xl {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(4rem, 14vw, 12rem);
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+}
+
+.display-lg {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.display-md {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.serif-hero {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(3rem, 10vw, 8rem);
+  line-height: 0.95;
+}
+
+.body-lg {
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  line-height: 1.65;
+  color: var(--mood-muted);
+}
+
+.body-md {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--mood-muted);
+}
+
+.mono-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mood-muted);
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.btn:active { transform: translateY(1px); }
+
+.btn-primary {
+  background: var(--mood-accent);
+  color: var(--mood-bg);
+  border-color: var(--mood-accent);
+}
+
+.btn-primary:hover {
+  background: var(--mood-accent-2);
+  border-color: var(--mood-accent-2);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--mood-text);
+  border-color: var(--mood-border-2);
+}
+
+.btn-ghost:hover {
+  border-color: var(--mood-accent);
+  color: var(--mood-accent);
+  transform: translateY(-2px);
+}
+
+/* ---------- chips ---------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--mood-muted);
+  padding: 8px 14px;
+  border: 1px solid var(--mood-border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.02);
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+  cursor: pointer;
+}
+
+.chip:hover {
+  color: var(--mood-text);
+  border-color: var(--mood-accent);
+  background: color-mix(in srgb, var(--mood-accent) 8%, transparent);
+  transform: translateY(-2px);
+}
+
+.chip-static { cursor: default; }
+.chip-static:hover { transform: none; border-color: var(--mood-border); color: var(--mood-muted); }
+
+/* ---------- section head ---------- */
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  margin-bottom: 32px;
+}
+
+.sec-num {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--mood-accent);
+  letter-spacing: 0.04em;
+}
+
+.sec-title {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.sec-rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--mood-border-2), transparent);
+  align-self: center;
+}
+
+/* ---------- reveal utility ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+html.is-reduced-motion .reveal,
+html:not(.is-scroll-path) .reveal,
+html:not(.js) .reveal {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- organic glow layer ---------- */
+.glow-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.glow-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.55;
+  will-change: transform;
+}
+
+/* ---------- scroll blur overlay ---------- */
+.scroll-blur {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.scroll-blur.is-left   { background: linear-gradient(90deg, color-mix(in srgb, var(--mood-text) 14%, transparent), transparent 22%); backdrop-filter: blur(5px); }
+.scroll-blur.is-right  { background: linear-gradient(270deg, color-mix(in srgb, var(--mood-text) 14%, transparent), transparent 22%); backdrop-filter: blur(5px); }
+.scroll-blur.is-top    { background: linear-gradient(180deg, color-mix(in srgb, var(--mood-text) 14%, transparent), transparent 22%); backdrop-filter: blur(5px); }
+.scroll-blur.is-bottom { background: linear-gradient(0deg, color-mix(in srgb, var(--mood-text) 14%, transparent), transparent 22%); backdrop-filter: blur(5px); }
+
+html.is-reduced-motion .scroll-blur,
+html:not(.is-scroll-path) .scroll-blur {
+  display: none;
+}
+
+/* ---------- responsive base ---------- */
+@media (max-width: 980px) {
+  .display-xl { font-size: clamp(3.2rem, 18vw, 7rem); }
+  .display-lg { font-size: clamp(2rem, 10vw, 3.5rem); }
+  .serif-hero { font-size: clamp(2.4rem, 14vw, 5rem); }
+}

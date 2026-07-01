@@ -1,0 +1,224 @@
+/* =====================================================
+   SCROLL PATH — camera, tracks, pinning
+   ===================================================== */
+
+/* Only activate when JS enables scroll path */
+html.is-scroll-path {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html.is-scroll-path::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
+#scroll-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* The camera wrapper */
+#viewport {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+}
+
+#camera {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400vw;
+  height: 300vh;
+  will-change: transform;
+}
+
+/* Sections positioned on the 2D canvas */
+[data-section] {
+  position: absolute;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 0 80px;
+  background: var(--mood-bg);
+  color: var(--mood-text);
+  overflow: hidden;
+}
+
+[data-section="hero"]   { top: 0; left: 0; z-index: 10; }
+[data-section="bio"]    { top: 100vh; left: 0;    z-index: 20; }
+[data-section="exp"]    { top: 100vh; left: 100vw;  z-index: 30; }
+[data-section="builds"] { top: 100vh; left: 200vw;  z-index: 40; }
+[data-section="skills"] { top: 200vh; left: 200vw;  z-index: 50; }
+[data-section="contact"]{ top: 200vh; left: 300vw;  z-index: 60; }
+
+/* Center single-panel horizontal tracks in the viewport */
+html.is-scroll-path .horizontal-track {
+  justify-content: center;
+  padding: 0;
+}
+
+html.is-scroll-path .horizontal-track > .track-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 60px 0;
+}
+
+html.is-scroll-path .horizontal-track .track-inner {
+  align-content: center;
+  padding: 0;
+  gap: 0;
+}
+
+/* Fallback: linear layout */
+html:not(.is-scroll-path) #viewport {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+html:not(.is-scroll-path) #camera {
+  position: relative;
+  width: 100%;
+  height: auto;
+  transform: none !important;
+}
+
+html:not(.is-scroll-path) [data-section] {
+  position: relative;
+  top: auto;
+  left: auto;
+  width: 100%;
+  min-height: auto;
+  padding: 120px 0;
+}
+
+@media (max-width: 720px) {
+  html:not(.is-scroll-path) [data-section] {
+    padding: 120px 0 130px;
+  }
+}
+
+/* Section content scroller (for vertical tracks) */
+.track-content {
+  position: relative;
+  z-index: 1;
+  width: min(var(--maxw), 92vw);
+  margin: 0 auto;
+}
+
+.vertical-track .track-content {
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  padding-right: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mood-border) transparent;
+}
+
+.vertical-track .track-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.vertical-track .track-content::-webkit-scrollbar-thumb {
+  background: var(--mood-border);
+  border-radius: 3px;
+}
+
+/* In scroll-path mode, vertical content scrolling is driven by the camera
+   progress; disable independent container scrolling to avoid wheel-event fights. */
+html.is-scroll-path .vertical-track .track-content {
+  overflow-y: hidden;
+}
+
+html:not(.is-scroll-path) .vertical-track .track-content {
+  max-height: none;
+  overflow: visible;
+  padding-right: 0;
+}
+
+/* Horizontal track inner layout */
+.horizontal-track .track-inner {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(var(--maxw), 92vw);
+  gap: 10vw;
+  width: min-content;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0 6vw;
+}
+
+html:not(.is-scroll-path) .horizontal-track .track-inner {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 0;
+}
+
+html:not(.is-scroll-path) .horizontal-track .track-panel {
+  margin-bottom: 80px;
+}
+
+html:not(.is-scroll-path) .horizontal-track .track-panel:last-child {
+  margin-bottom: 0;
+}
+
+/* Pin states */
+[data-section].is-pinned {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+/* Scroll hint */
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mood-muted);
+  opacity: 0.7;
+  animation: hint-bob 2s ease-in-out infinite;
+}
+
+@keyframes hint-bob {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+.scroll-hint svg {
+  width: 18px;
+  height: 18px;
+}
+
+html.is-reduced-motion .scroll-hint,
+html:not(.is-scroll-path) .scroll-hint {
+  animation: none;
+}

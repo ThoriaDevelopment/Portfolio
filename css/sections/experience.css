@@ -1,0 +1,134 @@
+/* =====================================================
+   EXPERIENCE SECTION
+   ===================================================== */
+[data-section="exp"] {
+  background: var(--mood-bg);
+  color: var(--mood-text);
+}
+
+.exp-timeline {
+  position: relative;
+  padding-left: 24px;
+  border-left: 1px solid var(--mood-border);
+}
+
+.exp-role {
+  position: relative;
+  margin-bottom: 22px;
+}
+
+.exp-role:last-child { margin-bottom: 0; }
+
+.exp-role::before {
+  content: '';
+  position: absolute;
+  left: -30px;
+  top: 5px;
+  width: 10px;
+  height: 10px;
+  background: var(--mood-bg);
+  border: 2px solid var(--mood-accent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px var(--mood-bg);
+}
+
+.exp-role-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 14px;
+  margin-bottom: 6px;
+}
+
+.exp-role h3 {
+  font-family: var(--display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.exp-role .org {
+  color: var(--mood-accent-2);
+  font-weight: 600;
+}
+
+.exp-meta {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--mood-muted);
+  margin-bottom: 8px;
+}
+
+.exp-role ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px 18px;
+}
+
+.exp-role li {
+  position: relative;
+  padding-left: 14px;
+  color: var(--mood-muted);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.exp-role li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--mood-accent);
+}
+
+.exp-role li b { color: var(--mood-text); }
+
+.exp-outstrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 0 0 22px;
+  padding: 12px 14px;
+  border: 1px solid var(--mood-border);
+  border-radius: var(--radius-sm);
+  background: var(--mood-surface);
+}
+
+.exp-outstrip span {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--mood-muted);
+}
+
+.exp-outstrip b {
+  color: var(--mood-text);
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+@media (max-width: 900px) {
+.exp-role ul { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  .exp-timeline { padding-left: 22px; }
+  .exp-role::before { left: -28px; top: 4px; width: 10px; height: 10px; }
+  .exp-role { margin-bottom: 32px; }
+  .exp-role h3 { font-size: 1.1rem; }
+  .exp-role li { font-size: 0.88rem; line-height: 1.45; padding-left: 16px; }
+  .exp-outstrip { gap: 10px 20px; padding: 14px 16px; margin-bottom: 32px; }
+  .exp-outstrip span { font-size: 0.76rem; }
+}
+
+html:not(.is-scroll-path) [data-section="exp"] {
+  padding: 140px 0 100px;
+}
+
+html.is-scroll-path [data-section="exp"] {
+  padding: 20px 0;
+}
+
+html.is-scroll-path [data-section="exp"] .track-content {
+  max-height: calc(100vh - 100px);
+}

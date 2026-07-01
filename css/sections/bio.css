@@ -1,0 +1,76 @@
+/* =====================================================
+   BIO SECTION
+   ===================================================== */
+[data-section="bio"] {
+  background: var(--paper);
+  color: var(--text-inverse);
+  padding: 60px 0;
+}
+
+.bio-panel {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.bio-headline {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(1.3rem, 2.4vw, 1.85rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text-inverse);
+  margin-bottom: 12px;
+  max-width: 26ch;
+}
+
+.bio-copy p {
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--muted-light);
+  margin-bottom: 10px;
+}
+
+.bio-copy strong {
+  color: var(--text-inverse);
+  font-weight: 700;
+}
+
+.bio-side {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.bio-side h3 {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-light);
+  margin-bottom: 6px;
+}
+
+.bio-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+@media (max-width: 900px) {
+  .bio-panel { grid-template-columns: 1fr; gap: 24px; }
+  .bio-headline { max-width: none; }
+}
+
+html:not(.is-scroll-path) [data-section="bio"] {
+  padding: 120px 0 80px;
+}
+
+html.is-scroll-path [data-section="bio"] {
+  padding: 20px 0;
+}
+
+[data-section="bio"] .glow-blob {
+  opacity: 0.32;
+}

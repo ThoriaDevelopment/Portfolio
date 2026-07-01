@@ -1,0 +1,131 @@
+/* =====================================================
+   HERO SECTION
+   ===================================================== */
+[data-section="hero"] {
+  padding: 0;
+  justify-content: center;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  width: min(var(--maxw), 92vw);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-rgb {
+  position: relative;
+  width: 100%;
+  margin: 0 auto 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-rgb .rgb-text {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(5rem, 16vw, 12rem);
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+  user-select: none;
+  position: relative;
+  margin: 0 auto;
+}
+
+.hero-rgb .rgb-char {
+  display: inline-block;
+  text-align: center;
+}
+
+.hero-sub {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: clamp(1.2rem, 2.4vw, 1.7rem);
+  letter-spacing: 0.02em;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.hero-meta {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hero-glows {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-glows::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(from 0deg, var(--magenta), #C7002F, #FF6B8A, #8B0020, var(--magenta));
+  opacity: 0.18;
+  filter: blur(90px);
+  animation: hero-glow-rotate 24s linear infinite;
+  mix-blend-mode: screen;
+}
+
+.hero-glows .glow-blob {
+  filter: blur(120px);
+}
+
+@keyframes hero-glow-rotate {
+  to { transform: rotate(360deg); }
+}
+
+.hero-glows .glow-blob:nth-child(1) {
+  width: 50vw;
+  height: 50vw;
+  background: var(--magenta);
+  top: -10%;
+  left: -10%;
+}
+
+.hero-glows .glow-blob:nth-child(2) {
+  width: 45vw;
+  height: 45vw;
+  background: var(--magenta);
+  bottom: -20%;
+  right: -10%;
+  opacity: 0.7;
+}
+
+.hero-glows .glow-blob:nth-child(3) {
+  width: 35vw;
+  height: 35vw;
+  background: #C7002F;
+  top: 25%;
+  right: 15%;
+  opacity: 0.45;
+}
+
+.hero-inner .scroll-hint {
+  position: relative;
+  bottom: auto;
+  left: auto;
+  transform: none;
+  margin-top: 48px;
+  animation: hero-hint-bob 2s ease-in-out infinite;
+}
+
+@keyframes hero-hint-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}

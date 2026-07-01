@@ -1,0 +1,197 @@
+/* =====================================================
+   SKILLS / FAQ / REFERENCES SECTION
+   ===================================================== */
+[data-section="skills"] {
+  background: var(--mood-bg);
+  color: var(--mood-text);
+  padding: 60px 0;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.skill-card {
+  border: 1px solid var(--mood-border);
+  border-radius: var(--radius);
+  padding: 16px;
+  background: linear-gradient(180deg, var(--mood-surface), var(--mood-bg-2));
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.skill-card:hover {
+  border-color: var(--mood-accent);
+  transform: translateY(-3px);
+}
+
+.skill-card h3 {
+  font-family: var(--display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+  color: var(--mood-text);
+}
+
+.skill-card p {
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--mood-muted);
+}
+
+/* FAQ */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 760px;
+  margin-bottom: 28px;
+}
+
+.faq-item {
+  border: 1px solid var(--mood-border);
+  border-radius: var(--radius-sm);
+  background: var(--mood-surface);
+  overflow: hidden;
+}
+
+.faq-summary {
+  width: 100%;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--mood-text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.faq-summary::before {
+  content: '▸';
+  color: var(--mood-accent);
+  transition: transform 0.2s ease;
+}
+
+.faq-item.is-open .faq-summary::before {
+  transform: rotate(90deg);
+}
+
+.faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.faq-item.is-open .faq-answer {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer-inner {
+  overflow: hidden;
+}
+
+.faq-answer-inner p {
+  padding: 0 18px 14px 36px;
+  color: var(--mood-muted);
+  line-height: 1.45;
+}
+
+/* References */
+.ref-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.reference-card {
+  border: 1px solid var(--mood-border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  background: var(--mood-surface);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+  cursor: pointer;
+}
+
+.reference-card:hover {
+  border-color: var(--mood-accent);
+  transform: translateY(-3px);
+}
+
+.ref-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--mood-bg);
+  background: var(--mood-accent);
+  flex: none;
+}
+
+.ref-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.ref-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--mood-text);
+}
+
+.ref-role {
+  font-size: 0.78rem;
+  color: var(--mood-muted);
+  line-height: 1.35;
+}
+
+.ref-discord {
+  margin-top: 4px;
+  padding: 4px 10px;
+  font-size: 0.72rem;
+}
+
+.ref-discord svg {
+  width: 12px;
+  height: 12px;
+}
+
+.ref-discord.copied {
+  border-color: var(--emerald);
+  color: var(--emerald);
+}
+
+@media (max-width: 980px) {
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+  .ref-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 620px) {
+  .skills-grid { grid-template-columns: 1fr; }
+  .ref-grid { grid-template-columns: 1fr; }
+}
+
+html:not(.is-scroll-path) [data-section="skills"] {
+  padding: 120px 0 80px;
+}
+
+html.is-scroll-path [data-section="skills"] {
+  padding: 20px 0;
+}
+
+html.is-scroll-path [data-section="skills"] .track-content {
+  max-height: calc(100vh - 100px);
+}

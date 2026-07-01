@@ -1,0 +1,13 @@
+.DS_Store
+Thumbs.db
+desktop.ini
+.claude/
+*.log
+*.tmp
+__pycache__/
+*.pyc
+issue*.png
+*.png.bak
+*.jpg.bak
+BUG_REPORT.md
+CHEAT_SHEET.md

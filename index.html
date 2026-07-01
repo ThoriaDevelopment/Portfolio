@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thoria | Server Manager</title>
+  <meta name="description" content="Thoria is a Minecraft server administrator and media manager with 3 years running 400–1000+ player networks. Moderation, security, creator media, and the Kleos dashboard." />
+  <meta name="author" content="Thoria" />
+  <meta name="theme-color" content="#E60036" />
+
+  <meta property="og:title" content="Thoria | Server Administrator & Media Manager" />
+  <meta property="og:description" content="3 years running 400–1000+ player Minecraft networks. Moderation, security, and creator media at scale." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://thoriadevelopment.github.io/Portfolio/Assets/Thoria/background.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://thoriadevelopment.github.io/Portfolio/Assets/Thoria/background.png" />
+
+  <link rel="icon" href="Assets/Thoria/inrising.png" />
+  <link rel="apple-touch-icon" href="Assets/Thoria/inrising.png" />
+
+  <script>document.documentElement.classList.add('js');</script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Fraunces:ital,opsz,wght@1,9..144,100..900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/effects.css" />
+  <link rel="stylesheet" href="css/scroll.css" />
+  <link rel="stylesheet" href="css/sections/loader.css" />
+  <link rel="stylesheet" href="css/sections/door.css" />
+  <link rel="stylesheet" href="css/sections/hero.css" />
+  <link rel="stylesheet" href="css/sections/bio.css" />
+  <link rel="stylesheet" href="css/sections/experience.css" />
+  <link rel="stylesheet" href="css/sections/builds.css" />
+  <link rel="stylesheet" href="css/sections/skills.css" />
+  <link rel="stylesheet" href="css/sections/contact.css" />
+</head>
+
+<body data-mood="hero">
+
+  <!-- SVG filters -->
+  <svg width="0" height="0" aria-hidden="true" class="visually-hidden">
+    <defs>
+      <filter id="rgb-displacement">
+        <feTurbulence type="fractalNoise" baseFrequency="0.01 0.02" numOctaves="2" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Loader -->
+  <div id="loader" data-mood="loader">
+    <canvas id="loaderCanvas" class="loader-canvas" aria-hidden="true"></canvas>
+    <div class="loader-pulse"></div>
+    <div class="loader-brand" aria-label="Thoria" data-split="letters">Thoria</div>
+  </div>
+
+  <!-- Ink cursor (loader phase) -->
+  <div id="ink-cursor" aria-hidden="true"></div>
+
+  <!-- MANAGEMENT door transition -->
+  <div id="door" data-mood="loader">
+    <div class="door-grid" aria-hidden="true">
+      <div class="door-cell">M</div><div class="door-cell">A</div><div class="door-cell">N</div><div class="door-cell">A</div><div class="door-cell">G</div>
+      <div class="door-cell">E</div><div class="door-cell">M</div><div class="door-cell">E</div><div class="door-cell">N</div><div class="door-cell">T</div>
+    </div>
+  </div>
+
+  <!-- Geode cursor -->
+  <div id="geode-cursor" aria-hidden="true"></div>
+
+  <!-- Scroll blur overlay -->
+  <div id="scrollBlur" class="scroll-blur" aria-hidden="true"></div>
+
+  <!-- Toast stack -->
+  <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav" role="banner">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="Thoria">Thoria<span class="brand-dot">_</span></a>
+      <nav class="nav-links" aria-label="Primary">
+        <a class="nav-link hover-swap" href="#bio"><span class="hover-swap-a">Bio</span><span class="hover-swap-b">Bio</span></a>
+        <a class="nav-link hover-swap" href="#experience"><span class="hover-swap-a">Experience</span><span class="hover-swap-b">Experience</span></a>
+        <a class="nav-link hover-swap" href="#builds"><span class="hover-swap-a">Builds</span><span class="hover-swap-b">Builds</span></a>
+        <a class="nav-link hover-swap" href="#skills"><span class="hover-swap-a">Skills</span><span class="hover-swap-b">Skills</span></a>
+        <a class="nav-link hover-swap" href="#contact"><span class="hover-swap-a">Contact</span><span class="hover-swap-b">Contact</span></a>
+      </nav>
+      <a class="btn btn-ghost btn-sm" href="https://github.com/thoriadevelopment" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </header>
+
+  <!-- Main viewport / camera -->
+  <main id="viewport">
+    <div id="camera">
+
+      <!-- HERO -->
+      <section class="track-section" data-section="hero" data-mood="hero" id="top" aria-label="Hero">
+        <div class="hero-glows glow-layer" aria-hidden="true">
+          <div class="glow-blob"></div>
+          <div class="glow-blob"></div>
+          <div class="glow-blob"></div>
+        </div>
+        <div class="hero-inner">
+          <p class="hero-sub reveal">Server Manager</p>
+
+          <div class="hero-rgb reveal">
+            <h1 class="rgb-text" data-text="THORIA" aria-label="Thoria">THORIA</h1>
+          </div>
+
+          <p class="hero-meta reveal">Professional Server Management & Administration</p>
+
+          <div class="scroll-hint hero-scroll-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 5v14M19 12l-7 7-7-7" />
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- BIO -->
+      <section class="track-section horizontal-track" data-section="bio" data-mood="bio" id="bio" aria-label="Bio">
+        <div class="glow-layer" aria-hidden="true">
+          <div class="glow-blob" style="width:45vw;height:45vw;background:#FF6B8A;top:-15%;left:-10%;"></div>
+          <div class="glow-blob" style="width:35vw;height:35vw;background:#FCD34D;bottom:-10%;right:10%;"></div>
+        </div>
+        <div class="track-content">
+          <div class="sec-head reveal">
+            <span class="sec-num">01</span>
+            <h2 class="sec-title">Bio</h2>
+            <span class="sec-rule"></span>
+          </div>
+
+          <div class="track-inner">
+            <div class="track-panel bio-panel reveal">
+              <div class="bio-copy">
+                <h3 class="bio-headline">I run Minecraft networks that actually work.</h3>
+                <p>I'm <strong>Thoria</strong>, a 20-year-old server administrator and media manager based in <strong>EU · Turkey</strong>. For over three years I've kept networks with <strong>400 to 1000+ concurrent players</strong> online, coherent, and growing.</p>
+                <p>I don't just follow procedures — I create the policy. I wrote <strong>ArchMC's official Community Guidelines</strong> from scratch, built the JavaScript payout algorithm that allocates creator payments systematically, and developed <strong>Kleos</strong> and <strong>Iustitia</strong> because the tools I needed didn't exist.</p>
+                <p>What sets me apart is reachability. I interview and guide every staff member I accept, listen to creators, and keep the number of servers I manage intentionally limited so I can focus deeply on each one.</p>
+              </div>
+
+              <div class="bio-side">
+                <div class="reveal">
+                  <h3>Languages</h3>
+                  <div class="bio-stack">
+                    <span class="chip chip-static">Turkey · native</span>
+                    <span class="chip chip-static">English · fluent</span>
+                  </div>
+                </div>
+
+                <div class="reveal">
+                  <h3>Tooling</h3>
+                  <div class="bio-stack">
+                    <span class="chip chip-static">Python</span>
+                    <span class="chip chip-static">JavaScript</span>
+                    <span class="chip chip-static">PyQt6</span>
+                    <span class="chip chip-static">Fabric / Java</span>
+                    <span class="chip chip-static">Polar</span>
+                    <span class="chip chip-static">Vulcan</span>
+                    <span class="chip chip-static">Grim</span>
+                    <span class="chip chip-static">Kleos</span>
+                  </div>
+                </div>
+
+                <div class="reveal">
+                  <h3>At a glance</h3>
+                  <div class="bio-stack">
+                    <span class="chip chip-static">3+ years</span>
+                    <span class="chip chip-static">50 max staff</span>
+                    <span class="chip chip-static">30+ creators</span>
+                    <span class="chip chip-static">42k+ Discord</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE -->
+      <section class="track-section vertical-track" data-section="exp" data-mood="experience" id="experience" aria-label="Experience">
+        <div class="track-content">
+
+          <div class="sec-head reveal">
+            <span class="sec-num">02</span>
+            <h2 class="sec-title">Experience</h2>
+            <span class="sec-rule"></span>
+          </div>
+
+          <div class="exp-outstrip reveal">
+            <span><b>100+</b> bugs documented</span>
+            <span><b>~100</b> screenshares</span>
+            <span><b>5</b> build projects</span>
+            <span><b>600+</b> tickets handled</span>
+            <span><b>~2.7k</b> punishments</span>
+          </div>
+
+          <div class="server-status reveal" style="margin-bottom:24px">
+            <p class="mono-label" style="margin-bottom:10px">Live server status</p>
+            <div id="serverStatus" style="display:flex;flex-wrap:wrap;gap:10px"></div>
+          </div>
+
+          <div class="exp-timeline reveal">
+            <article class="exp-role">
+              <div class="exp-role-head">
+                <h3>General Manager <span class="org">· ArchMC Network</span></h3>
+                <span class="chip chip-static">~1k avg players · 42k+ Discord</span>
+              </div>
+              <p class="exp-meta">2024 – 2026 · Owned by Rule Your Own Game (EaglerCraft)</p>
+              <ul>
+                <li class="">Moderated a <b>42k+ member</b> Discord community.</li>
+                <li class="">Led a staff team of up to <b>22</b>, plus builders and paid creators.</li>
+                <li class="">Documented <b>100+ bugs</b>, including critical vulnerabilities.</li>
+                <li class="">Built a <b>JavaScript payout algorithm</b> for systematic creator compensation.</li>
+                <li class="">Conducted <b>~70 manual screenshares</b> with Echo & Ocean.</li>
+                <li class="">Handled <b>600+ support tickets</b> and authored ArchMC's official Community Guidelines.</li>
+              </ul>
+
+              <div class="proof">
+                <span class="mono-label" style="display:block;margin:22px 0 12px;">Verified proof</span>
+                <div class="proof-thumbs reveal-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:520px;margin-bottom:14px;">
+                  <button class="proof-thumb reveal" type="button" data-lb-trigger data-lb-group="archmc" data-lb-src="Assets/ArchMC/Position%20Proof.png" data-lb-caption="ArchMC | Position proof (admin rank)" aria-label="Open position proof">
+                    <img src="Assets/ArchMC/Position%20Proof.png" alt="ArchMC administrator position proof" loading="lazy" />
+                    <span class="proof-cap">Position</span>
+                  </button>
+                  <button class="proof-thumb reveal" type="button" data-lb-trigger data-lb-group="archmc" data-lb-src="Assets/ArchMC/Server%20Proof.png" data-lb-caption="ArchMC | Server proof" aria-label="Open server proof">
+                    <img src="Assets/ArchMC/Server%20Proof.png" alt="ArchMC server proof" loading="lazy" />
+                    <span class="proof-cap">Server</span>
+                  </button>
+                  <button class="proof-thumb reveal" type="button" data-lb-trigger data-lb-group="archmc" data-lb-src="Assets/ArchMC/Minecraft%20Proof.png" data-lb-caption="ArchMC | In-game proof" aria-label="Open in-game proof">
+                    <img src="Assets/ArchMC/Minecraft%20Proof.png" alt="ArchMC in-game proof" loading="lazy" />
+                    <span class="proof-cap">In-game</span>
+                  </button>
+                </div>
+                <div class="proof-links" style="display:flex;flex-wrap:wrap;gap:8px;">
+                  <a class="chip" href="https://discord.gg/archmc" target="_blank" rel="noopener">Discord ↗</a>
+                  <span class="chip chip-static">IP · arch.mc</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="exp-role">
+              <div class="exp-role-head">
+                <h3>Builder & Administrator <span class="org">· VoidSentMC Network</span></h3>
+                <span class="chip chip-static">~250 avg players · 3.5k Discord</span>
+              </div>
+              <p class="exp-meta">2025 – 2026</p>
+              <ul>
+                <li class="">Moderated a <b>3,500+ member</b> Discord community.</li>
+                <li class="">Led a staff team of <b>19</b>, including voluntary builders.</li>
+                <li class="">Documented <b>15+ bugs</b>, including critical ones.</li>
+                <li class="">Handled <b>50+ support tickets</b>; issued ~200 punishments.</li>
+                <li class="">Finalized <b>5 build projects</b>.</li>
+              </ul>
+
+              <div class="proof">
+                <span class="mono-label" style="display:block;margin:22px 0 12px;">Verified proof</span>
+                <div class="proof-thumbs reveal-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:520px;margin-bottom:14px;">
+                  <button class="proof-thumb reveal" type="button" data-lb-trigger data-lb-group="voidsent" data-lb-src="Assets/VoidSentMC/Position%20Proof.png" data-lb-caption="VoidSentMC | Position proof" aria-label="Open position proof">
+                    <img src="Assets/VoidSentMC/Position%20Proof.png" alt="VoidSentMC administrator position proof" loading="lazy" />
+                    <span class="proof-cap">Position</span>
+                  </button>
+                  <button class="proof-thumb reveal" type="button" data-lb-trigger data-lb-group="voidsent" data-lb-src="Assets/VoidSentMC/Server%20Proof.png" data-lb-caption="VoidSentMC | Server proof" aria-label="Open server proof">
+                    <img src="Assets/VoidSentMC/Server%20Proof.png" alt="VoidSentMC server proof" loading="lazy" />
+                    <span class="proof-cap">Server</span>
+                  </button>
+                  <button class="proof-thumb reveal" type="button" data-lb-trigger data-lb-group="voidsent" data-lb-src="Assets/VoidSentMC/Minecraft%20Proof.png" data-lb-caption="VoidSentMC | In-game proof" aria-label="Open in-game proof">
+                    <img src="Assets/VoidSentMC/Minecraft%20Proof.png" alt="VoidSentMC in-game proof" loading="lazy" />
+                    <span class="proof-cap">In-game</span>
+                  </button>
+                </div>
+                <div class="proof-links" style="display:flex;flex-wrap:wrap;gap:8px;">
+                  <a class="chip" href="https://discord.gg/voidsentmc" target="_blank" rel="noopener">Discord ↗</a>
+                  <span class="chip chip-static">IP · play.voidsent.net</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- BUILDS -->
+      <section class="track-section horizontal-track" data-section="builds" data-mood="builds" id="builds" aria-label="Builds">
+        <div class="glow-layer" aria-hidden="true">
+          <div class="glow-blob" style="width:40vw;height:40vw;background:#60A5FA;top:-10%;left:20%;"></div>
+          <div class="glow-blob" style="width:35vw;height:35vw;background:#F9A8D4;bottom:-10%;right:-5%;"></div>
+        </div>
+
+        <div class="track-content">
+          <div class="sec-head reveal">
+            <span class="sec-num">03</span>
+            <h2 class="sec-title">Featured Builds</h2>
+            <span class="sec-rule"></span>
+          </div>
+
+          <div class="builds-grid">
+
+            <!-- Kleos -->
+            <article class="project-card reveal">
+              <div class="project-header" data-project-toggle role="button" tabindex="0" aria-expanded="false">
+                <div class="project-title-block">
+                  <h3 class="project-name">Kleos</h3>
+                  <p class="project-summary">A media-management dashboard that tracks multiple content creators across YouTube and Twitch from one offline-first SQLite panel.</p>
+                  <div class="project-tags">
+                    <span class="project-tag">Python</span>
+                    <span class="project-tag">PyQt6</span>
+                    <span class="project-tag">SQLite</span>
+                    <span class="project-tag">YouTube / Twitch API</span>
+                    <span class="project-tag">AI verification</span>
+                  </div>
+                </div>
+                <img class="project-thumb" src="Assets/Kleos/Kleos.png" alt="Kleos logo" width="160" height="160" loading="lazy" />
+              </div>
+              <div class="project-body">
+                <div class="project-body-inner">
+                  <div class="project-detail">
+                    <div>
+                      <h4>Why it exists</h4>
+                      <p>Running media for 30+ creators across multiple servers means spreadsheets, missed uploads, and payment disputes. Kleos replaces that with a desktop dashboard that keeps every creator's history, stats, and verification status in one place.</p>
+                      <h4>Core features</h4>
+                      <ul>
+                        <li>Offline-first <b>SQLite</b> databases, one per community profile.</li>
+                        <li>Fetches public metadata from <b>YouTube Data API v3</b> and <b>Twitch Helix</b>.</li>
+                        <li><b>AI verification</b> via Claude or Gemini to classify content against a community description.</li>
+                        <li><b>Keyword verification</b> as a no-AI alternative.</li>
+                        <li>Role-filtered creator cards with sparklines, new-activity alerts, and milestone notifications.</li>
+                        <li>Leaderboards, analytics charts, and shareable <b>HTML export</b> of community boards.</li>
+                        <li>Import/export profiles and creators with merge/dedup.</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4>What it demonstrates</h4>
+                      <p>Kleos isn't a config tool I downloaded — it's a full product: API integration, database design, background threading, UI design tokens, and an installer. It shows I can identify a real operational pain point and ship the tool to fix it.</p>
+                      <h4>Tech stack</h4>
+                      <ul>
+                        <li>Python 3.12+ · PyQt6 · matplotlib · requests · anthropic / google-genai SDKs.</li>
+                        <li>Dual-connection SQLite with WAL mode for lock-free reads.</li>
+                        <li>PyInstaller packaging into a Windows installer.</li>
+                      </ul>
+                    </div>
+
+                    <div class="project-actions">
+                      <a class="btn btn-primary" href="https://github.com/ThoriaDevelopment/Kleos" target="_blank" rel="noopener">View on GitHub ↗</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Iustitia -->
+            <article class="project-card reveal">
+              <div class="project-header" data-project-toggle role="button" tabindex="0" aria-expanded="false">
+                <div class="project-title-block">
+                  <h3 class="project-name">Iustitia</h3>
+                  <p class="project-summary">A purely client-sided Fabric anti-cheat for Minecraft 1.21.11. It watches other players through server-rebroadcast packets with zero outgoing traffic.</p>
+                  <div class="project-tags">
+                    <span class="project-tag">Fabric mod</span>
+                    <span class="project-tag">Java / Kotlin</span>
+                    <span class="project-tag">32 detection checks</span>
+                    <span class="project-tag">Zero outgoing packets</span>
+                    <span class="project-tag">Privacy-first</span>
+                  </div>
+                </div>
+                <img class="project-thumb" src="Assets/Iustitia/iustitia.png" alt="Iustitia logo" width="160" height="160" loading="lazy" />
+              </div>
+              <div class="project-body">
+                <div class="project-body-inner">
+                  <div class="project-detail">
+                    <div>
+                      <h4>Why it exists</h4>
+                      <p>Most anti-cheats require server installation and broad permissions. Iustitia gives non-staff players a local radar: it detects impossible interactions silently, never bans, never reports, and never sends data anywhere.</p>
+                      <h4>Core features</h4>
+                      <ul>
+                        <li><b>32 checks</b>: 14 combat (reach, killAura, criticals, autoBlock, etc.) and 18 movement/rotation/packet (fly, phase, timer, scaffold, etc.).</li>
+                        <li>Read-only packet mixin; fail-open architecture; never crashes the client.</li>
+                        <li>Protocol-aware for both 1.8-era and modern 1.21.11 combat via ViaFabricPlus.</li>
+                        <li>Local chat alerts with severity scaling; nametag tiers (green/yellow/red) + confidence score.</li>
+                        <li>Observer tools: <b>instant replay</b>, <b>.sonar</b> directional audio alerts, <b>evidence clips</b>, moderator notes, and session reports.</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4>What it demonstrates</h4>
+                      <p>Iustitia proves I understand cheats at the packet level: how bypasses are built, how server state is rebroadcast, and how to design ethical tooling that detects without enforcing. It also shows systems thinking — a 32-check pipeline with config, keybinds, render overlays, and persistence.</p>
+                      <h4>Tech stack</h4>
+                      <ul>
+                        <li>Minecraft 1.21.11 · Fabric Loader · Fabric API · fabric-language-kotlin · YACL.</li>
+                        <li>Kotlin + Java mixins, Gson config, JDK 21.</li>
+                        <li>MIT licensed.</li>
+                      </ul>
+                    </div>
+
+                    <div class="project-actions">
+                      <a class="btn btn-primary" href="https://github.com/ThoriaDevelopment/Iustitia" target="_blank" rel="noopener">View on GitHub ↗</a>
+                      <a class="btn btn-ghost" href="https://thoriadevelopment.github.io/Iustitia/" target="_blank" rel="noopener">Visit Page ↗</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS / FAQ / REFERENCES -->
+      <section class="track-section vertical-track" data-section="skills" data-mood="skills" id="skills" aria-label="Skills, FAQ, and References">
+        <div class="track-content">
+
+          <div class="sec-head reveal">
+            <span class="sec-num">04</span>
+            <h2 class="sec-title">Skills</h2>
+            <span class="sec-rule"></span>
+          </div>
+
+          <div class="skills-grid reveal">
+            <article class="skill-card">
+              <h3>Creator & Media Management</h3>
+              <p>Running creator programs at scale. Tracking activity, allocating budgets, and keeping 30+ creators aligned across multiple servers.</p>
+            </article>
+
+            <article class="skill-card">
+              <h3>Anticheat & Security</h3>
+              <p>Hands-on with Polar, Vulcan, Grim; studied open-source clients; ~100 manual screenshares; punishment and appeals at scale.</p>
+            </article>
+
+            <article class="skill-card">
+              <h3>Staff Leadership</h3>
+              <p>Hiring, onboarding, and being the reachable management member that staff and creators actually talk to. Teams up to 50.</p>
+            </article>
+
+            <article class="skill-card">
+              <h3>Development & Tooling</h3>
+              <p>Python, JavaScript, and Fabric/Java for internal tools. Creator of Kleos and Iustitia. Fluent English + native Turkish.</p>
+            </article>
+          </div>
+
+          <div class="sec-head reveal" style="margin-top:56px;">
+            <span class="sec-num">05</span>
+            <h2 class="sec-title">FAQ</h2>
+            <span class="sec-rule"></span>
+          </div>
+
+          <div class="faq-list reveal">
+            <div class="faq-item">
+              <button class="faq-summary" type="button" aria-expanded="false">What's your availability and timezone?</button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>EU · Turkey (UTC+3). I keep flexible hours and stay reachable across timezones. I'm the management member people actually hear back from.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-summary" type="button" aria-expanded="false">Paid or volunteer roles?</button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>Open to both. I've led paid creator programs and voluntary staff teams; happy to discuss scope, commitment, and compensation up front so nothing is ambiguous. I limit myself to at most 4 servers to stay focused.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-summary" type="button" aria-expanded="false">What does "reachable management" actually mean?</button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>Creators and staff get real responses. I personally interview and guide new staff, handle escalations directly, and keep moderation and appeals workflows transparent.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="sec-head reveal" style="margin-top:48px;">
+            <span class="sec-num">06</span>
+            <h2 class="sec-title">References</h2>
+            <span class="sec-rule"></span>
+          </div>
+
+          <div class="ref-grid reveal" id="referencesGrid">
+            <!-- References injected by js/references.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="track-section horizontal-track" data-section="contact" data-mood="contact" id="contact" aria-label="Contact">
+        <div class="repeat-text" aria-hidden="true">
+          <span>Thoria's</span>
+          <span>MANAGEMENT</span>
+        </div>
+
+        <div class="contact-panel">
+          <div class="contact-head reveal">
+            <h2>Let's build something solid.</h2>
+            <p>I'm open for server administration, media management, and tooling roles. Reach out directly — I read every message.</p>
+          </div>
+
+          <div class="contact-links reveal">
+            <a class="contact-link hover-swap" href="mailto:officialthoria@gmail.com">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="m22 7-10 6L2 7" />
+              </svg>
+              <span class="hover-swap-a">officialthoria@gmail.com</span>
+              <span class="hover-swap-b">officialthoria@gmail.com</span>
+            </a>
+
+            <a class="contact-link hover-swap" href="https://github.com/thoriadevelopment" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.02c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.07.78 2.16v3.2c0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z" />
+              </svg>
+              <span class="hover-swap-a">github.com/thoriadevelopment</span>
+              <span class="hover-swap-b">github.com/thoriadevelopment</span>
+            </a>
+
+            <button class="contact-link hover-swap" type="button" data-copy="@inrising" aria-label="Copy Discord username">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.25.5a18 18 0 0 1 4.3 1.4 16.5 16.5 0 0 0-15 0A18 18 0 0 1 8.85 3.5L8.6 3a19.8 19.8 0 0 0-4.9 1.4C.6 9 .1 13.5.1 18a19.8 19.8 0 0 0 6 3l.5-.7a13 13 0 0 1-2-1l.5-.36A14.2 14.2 0 0 0 12 20.4a14.2 14.2 0 0 0 6.4-1.46l.5.36a13 13 0 0 1-2 1l.5.7a19.8 19.8 0 0 0 6-3c0-4.5-.5-9-3.6-13.6zM8.3 15.3c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm7.4 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z" />
+              </svg>
+              <span class="hover-swap-a">Discord @inrising</span>
+              <span class="hover-swap-b">Discord @inrising</span>
+            </button>
+          </div>
+
+
+          <div class="contact-form-wrap reveal">
+            <h3>Send a ticket</h3>
+            <form class="ticket-form" id="contactTicketForm" novalidate
+>
+              <div class="ticket-field">
+                <label for="ticketName">Name / Server</label>
+                <input type="text" id="ticketName" name="name" required placeholder="Your name or server" />
+              </div>
+              <div class="ticket-field">
+                <label for="ticketContact">Discord or Email</label>
+                <input type="text" id="ticketContact" name="contact" required placeholder="How I can reach you" />
+              </div>
+              <div class="ticket-field">
+                <label for="ticketRole">What role are you looking for?</label>
+                <select id="ticketRole" name="role" required
+>
+                  <option value="" disabled selected>Select a role...</option>
+                  <option value="admin">Server Administrator</option>
+                  <option value="media">Media Manager</option>
+                  <option value="staff">Staff Management</option>
+                  <option value="tooling">Tooling / Development</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="ticket-field">
+                <label for="ticketMessage">Message</label>
+                <textarea id="ticketMessage" name="message" rows="3" required placeholder="Tell me about your server and what you need."></textarea>
+              </div>
+              <button class="btn btn-primary" type="submit">Send message</button>
+              <div class="ticket-status" id="ticketStatus" role="status" aria-live="polite"></div>
+            </form>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+    <figure class="lb-figure">
+      <img class="lb-img" id="lbImg" src="" alt="" loading="lazy" />
+      <iframe class="lb-pdf" id="lbPdf" src="" title="PDF preview"></iframe>
+      <figcaption class="lb-caption" id="lbCaption"></figcaption>
+      <a class="lb-open" id="lbOpen" href="" target="_blank" rel="noopener">Open original ↗</a>
+    </figure>
+    <button class="lb-close" id="lbClose" type="button" aria-label="Close preview">×</button>
+    <button class="lb-prev" id="lbPrev" type="button" aria-label="Previous image">‹</button>
+    <button class="lb-next" id="lbNext" type="button" aria-label="Next image">›</button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

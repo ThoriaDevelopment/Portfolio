@@ -1,0 +1,235 @@
+/* =====================================================
+   DESIGN TOKENS — Thoria Portfolio Revamp
+   ===================================================== */
+
+:root {
+  /* Global neutrals */
+  --ink: #0B0D10;
+  --ink-2: #12151A;
+  --graphite: #1A1D22;
+  --graphite-2: #22262D;
+  --paper: #F7F5F2;
+  --paper-2: #FFFFFF;
+  --mist: #EDE9E4;
+
+  /* Text */
+  --text: #F7F5F2;
+  --text-inverse: #0B0D10;
+  --muted: #9AA5B1;
+  --muted-light: #6B7280;
+  --muted-dark: #5A626C;
+
+  /* Accent palette */
+  --magenta: #E60036;
+  --magenta-light: #FF6B8A;
+  --emerald: #34D399;
+  --emerald-dim: #0B7A55;
+  --blue: #2563EB;
+  --blue-soft: #60A5FA;
+  --amber: #F59E0B;
+  --amber-soft: #FCD34D;
+  --cyan: #00FFFF;
+  --rgb-magenta: #FF00FF;
+  --yellow: #FFFF00;
+
+  /* Mood defaults (dark hero) */
+  --mood-bg: var(--ink);
+  --mood-bg-2: var(--ink-2);
+  --mood-surface: var(--graphite);
+  --mood-surface-2: var(--graphite-2);
+  --mood-text: var(--text);
+  --mood-muted: var(--muted);
+  --mood-accent: var(--emerald);
+  --mood-accent-2: var(--emerald);
+  --mood-border: rgba(255, 255, 255, 0.08);
+  --mood-border-2: rgba(255, 255, 255, 0.14);
+
+  /* Typography — distinctive choices; avoid overused system fonts as primary */
+  --display: 'Cabinet Grotesk', 'Bodoni Moda', sans-serif;
+  --serif: 'Fraunces', 'Bodoni Moda', 'Playfair Display', Georgia, serif;
+  --sans: 'Cabinet Grotesk', 'Fraunces', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Layout */
+  --maxw: 1180px;
+  --radius: 16px;
+  --radius-sm: 10px;
+
+  /* Motion */
+  --transition-fast: 0.18s cubic-bezier(0.2, 0.7, 0.2, 1);
+  --transition-medium: 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+  --transition-slow: 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* Cursor */
+  --cursor-size: 21px;
+  --cursor-hover-size: 84px;
+  --cursor-ink-size: 240px;
+}
+
+/* ---------- section moods ---------- */
+[data-mood="loader"] {
+  --mood-bg: var(--magenta);
+  --mood-bg-2: #C7002F;
+  --mood-text: var(--ink);
+  --mood-muted: #4A0418;
+  --mood-accent: var(--ink);
+  --mood-border: rgba(11, 13, 16, 0.18);
+}
+
+[data-mood="hero"] {
+  --mood-bg: var(--ink);
+  --mood-bg-2: var(--ink-2);
+  --mood-text: var(--text);
+  --mood-muted: var(--muted);
+  --mood-accent: var(--magenta);
+  --mood-accent-2: var(--magenta-light);
+  --mood-border: rgba(255, 255, 255, 0.08);
+  --mood-border-2: rgba(255, 255, 255, 0.14);
+}
+
+[data-mood="bio"] {
+  --mood-bg: var(--paper);
+  --mood-bg-2: var(--paper-2);
+  --mood-text: var(--text-inverse);
+  --mood-muted: var(--muted-light);
+  --mood-accent: var(--magenta);
+  --mood-accent-2: var(--magenta-light);
+  --mood-border: rgba(11, 13, 16, 0.08);
+  --mood-border-2: rgba(11, 13, 16, 0.14);
+}
+
+[data-mood="experience"] {
+  --mood-bg: #061410;
+  --mood-bg-2: #0B1F1A;
+  --mood-surface: #0f2922;
+  --mood-surface-2: #143d32;
+  --mood-text: #E8FFF6;
+  --mood-muted: #76B39A;
+  --mood-accent: var(--emerald);
+  --mood-accent-2: #22D3EE;
+  --mood-border: rgba(52, 211, 153, 0.14);
+  --mood-border-2: rgba(34, 211, 238, 0.22);
+}
+
+[data-mood="builds"] {
+  --mood-bg: #070B14;
+  --mood-bg-2: #0B1222;
+  --mood-surface: #111C33;
+  --mood-surface-2: #162540;
+  --mood-text: #F0F6FF;
+  --mood-muted: #8FA8D6;
+  --mood-accent: #60A5FA;
+  --mood-accent-2: #A78BFA;
+  --mood-border: rgba(96, 165, 250, 0.16);
+  --mood-border-2: rgba(167, 139, 250, 0.24);
+}
+
+[data-mood="skills"] {
+  --mood-bg: #1A0F02;
+  --mood-bg-2: #241606;
+  --mood-surface: #331F08;
+  --mood-surface-2: #45290A;
+  --mood-text: #FFFBF2;
+  --mood-muted: #D4A36A;
+  --mood-accent: #F59E0B;
+  --mood-accent-2: #FB923C;
+  --mood-border: rgba(245, 158, 11, 0.16);
+  --mood-border-2: rgba(251, 146, 60, 0.24);
+}
+
+[data-mood="contact"] {
+  --mood-bg: var(--paper);
+  --mood-bg-2: var(--paper-2);
+  --mood-surface: var(--mist);
+  --mood-surface-2: #FFFFFF;
+  --mood-text: var(--ink);
+  --mood-muted: var(--muted-dark);
+  --mood-accent: var(--magenta);
+  --mood-accent-2: var(--magenta-light);
+  --mood-border: rgba(11, 13, 16, 0.10);
+  --mood-border-2: rgba(11, 13, 16, 0.16);
+}
+
+/* ---------- reset ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: auto;
+  background: var(--ink);
+  color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: var(--display);
+  font-weight: 500;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  background: var(--mood-bg);
+  color: var(--mood-text);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img, svg, video, canvas {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: inherit;
+}
+
+::selection {
+  background: var(--mood-accent);
+  color: var(--mood-bg);
+}
+
+/* ---------- utility ---------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.wrap {
+  width: min(var(--maxw), 92vw);
+  margin: 0 auto;
+}
+
+.label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mood-muted);
+}
