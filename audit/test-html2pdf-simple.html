@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    #source { width: 500px; padding: 40px; background: #fff; color: #000; }
+  </style>
+</head>
+<body>
+  <div id="source">
+    <h1>Hello World</h1>
+    <p>This is a test of html2pdf.js in headless Chromium.</p>
+  </div>
+  <button onclick="download()">Download</button>
+  <script>
+    function download() {
+      const source = document.getElementById('source');
+      html2pdf().set({
+        margin: 20,
+        filename: 'test.pdf',
+        html2canvas: { scale: 2, backgroundColor: '#fff' },
+        jsPDF: { unit: 'pt', format: 'letter', orientation: 'portrait' }
+      }).from(source).save();
+    }
+  </script>
+</body>
+</html>

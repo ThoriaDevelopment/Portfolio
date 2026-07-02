@@ -35,33 +35,34 @@ export function initScrollPath() {
   // well into the section.
   const waypoints = [
     { p: 0,    x: 0,      y: 0,      mood: 'hero' },
-    { p: 0.15, x: 0,      y: 0,      mood: 'hero' },
-    { p: 0.18, x: 0,      y: -100,   mood: 'bio' },
-    { p: 0.33, x: 0,      y: -100,   mood: 'bio' },
-    { p: 0.36, x: -100,   y: -100,   mood: 'exp' },
-    { p: 0.63, x: -100,   y: -100,   mood: 'exp' },
-    { p: 0.66, x: -200,   y: -100,   mood: 'builds' },
-    { p: 0.80, x: -200,   y: -100,   mood: 'builds' },
-    { p: 0.83, x: -200,   y: -200,   mood: 'skills' },
-    { p: 0.95, x: -200,   y: -200,   mood: 'skills' },
+    { p: 0.11, x: 0,      y: 0,      mood: 'hero' },
+    { p: 0.14, x: 0,      y: -100,   mood: 'bio' },
+    { p: 0.28, x: 0,      y: -100,   mood: 'bio' },
+    { p: 0.31, x: -100,   y: -100,   mood: 'exp' },
+    { p: 0.61, x: -100,   y: -100,   mood: 'exp' },
+    { p: 0.64, x: -200,   y: -100,   mood: 'builds' },
+    { p: 0.77, x: -200,   y: -100,   mood: 'builds' },
+    { p: 0.80, x: -200,   y: -200,   mood: 'skills' },
+    { p: 0.85, x: -200,   y: -200,   mood: 'skills' },
     { p: 0.98, x: -300,   y: -200,   mood: 'contact' },
     { p: 1,    x: -300,   y: -200,   mood: 'contact' }
   ];
 
   const phases = [
-    { name: 'hero',  start: 0,    end: 0.18, direction: 'bottom' },
-    { name: 'bio',   start: 0.18, end: 0.36, direction: 'right' },
-    { name: 'exp',   start: 0.36, end: 0.66, direction: 'right' },
-    { name: 'builds',start: 0.66, end: 0.83, direction: 'none' },
-    { name: 'skills',start: 0.83, end: 0.95, direction: 'bottom' },
-    { name: 'contact',start:0.95, end: 1,    direction: 'right' }
+    { name: 'hero',  start: 0,    end: 0.14, direction: 'bottom' },
+    { name: 'bio',   start: 0.14, end: 0.31, direction: 'right' },
+    { name: 'exp',   start: 0.31, end: 0.64, direction: 'right' },
+    { name: 'builds',start: 0.64, end: 0.80, direction: 'none' },
+    { name: 'skills',start: 0.80, end: 0.98, direction: 'bottom' },
+    { name: 'contact',start:0.98, end: 1,    direction: 'right' }
   ];
 
-  const boundaries = [0.18, 0.36, 0.66, 0.83, 0.95];
-  const snapThreshold = 0.05;
-  const snapDelay = 1800;
+  const boundaries = [0.14, 0.31, 0.64, 0.80, 0.98];
+  const snapThreshold = 0.04;
+  const snapDelay = 900;
+  const buildsFadeBand = { start: 0.70, end: 0.74, kleosAnchor: 0.70, iustitiaAnchor: 0.73 };
   const verticalDeadzone = 0.12;
-  const skillsHoldEnd = 0.02;
+  const skillsHoldEnd = 0;
 
   function getTrackHeight() { return window.innerHeight * 8; }
 
@@ -69,7 +70,9 @@ export function initScrollPath() {
   function setMood(mood) {
     if (mood === currentMood) return;
     currentMood = mood;
-    document.body.setAttribute('data-mood', mood);
+    // Waypoints use 'exp' as the section id, but the CSS theme name is 'experience'.
+    const themeMood = mood === 'exp' ? 'experience' : mood;
+    document.body.setAttribute('data-mood', themeMood);
     sections.forEach(sec => sec.classList.toggle('is-active', sec.getAttribute('data-section') === mood));
     repeatTexts.forEach(rt => rt.classList.toggle('is-visible', mood === 'contact'));
   }
@@ -112,8 +115,51 @@ export function initScrollPath() {
     window.dispatchEvent(new CustomEvent('cameratransition', { detail: { direction: dir } }));
   }
 
-  function dispatchBuildsFade(value) {
-    document.documentElement.style.setProperty('--builds-fade', value.toFixed(3));
+  function dispatchBuildsCategory(category, direction) {
+    window.dispatchEvent(new CustomEvent('buildscategorychange', {
+      detail: { category, direction }
+    }));
+  }
+
+  // Event-driven category swap inside Builds: arrow buttons toggle between
+  // Kleos and Iustitia. Scroll only leaves the Builds section; it does not
+  // swap categories, but category changes are still dispatched as events.
+  let buildsCategory = 'kleos';
+  let buildsLocked = false;
+
+  function setBuildsCategory(category, direction) {
+    if (buildsCategory === category) return;
+    buildsCategory = category;
+    buildsLocked = true;
+
+    const grid = sectionEls.builds?.querySelector('.builds-grid');
+    if (grid) {
+      grid.classList.toggle('is-kleos', category === 'kleos');
+      grid.classList.toggle('is-iustitia', category === 'iustitia');
+      grid.classList.add('is-transitioning');
+    }
+
+    dispatchBuildsCategory(category, direction);
+
+    setTimeout(() => {
+      buildsLocked = false;
+      grid?.classList.remove('is-transitioning');
+    }, 650);
+  }
+
+  // Wire up arrow buttons in the Builds section.
+  const buildsGrid = sectionEls.builds?.querySelector('.builds-grid');
+  if (buildsGrid) {
+    const nextBtn = buildsGrid.querySelector('.project-next');
+    const prevBtn = buildsGrid.querySelector('.project-prev');
+    nextBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!buildsLocked) setBuildsCategory('iustitia', 'next');
+    });
+    prevBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!buildsLocked) setBuildsCategory('kleos', 'prev');
+    });
   }
 
   function update() {
@@ -134,24 +180,17 @@ export function initScrollPath() {
     currentY += (targetY - currentY) * lerpFactor;
     camera.style.transform = `translate(${currentX}vw, ${currentY}vh)`;
 
-    // Builds cross-fade — hold Kleos for the first half of the section, then
-    // fade to Iustitia over a narrow band so users can stop and read either card.
-    let fade;
-    if (progress < 0.72) {
-      fade = 0;
-    } else if (progress > 0.77) {
-      fade = 1;
-    } else {
-      const k = (progress - 0.72) / 0.05;
-      fade = k * k * (3 - 2 * k);
-    }
-    dispatchBuildsFade(fade);
-
+    // Builds category state — now toggled with arrows inside the section.
+    // Scroll only changes the camera phase; it no longer swaps categories.
     const buildsGrid = sectionEls.builds?.querySelector('.builds-grid');
-    if (buildsGrid) {
-      buildsGrid.classList.toggle('is-fade-a', fade < 0.45);
-      buildsGrid.classList.toggle('is-fade-b', fade > 0.55);
-      buildsGrid.classList.toggle('is-fade-mix', fade >= 0.45 && fade <= 0.55);
+    if (buildsGrid && !buildsGrid.classList.contains('is-kleos') && !buildsGrid.classList.contains('is-iustitia')) {
+      buildsGrid.classList.add('is-kleos');
+    }
+
+    // Reset to Kleos when the user leaves Builds upward, so the section always
+    // starts on Kleos on re-entry.
+    if (buildsCategory !== 'kleos' && progress < buildsFadeBand.start) {
+      setBuildsCategory('kleos', 'up');
     }
 
     // Vertical-track internal scroll while camera is pinned.
@@ -182,8 +221,8 @@ export function initScrollPath() {
       }
     }
 
-    syncVerticalScroll(expContent, 0.36, 0.66);
-    syncVerticalScroll(skillsContent, 0.83, 0.95);
+    syncVerticalScroll(expContent, 0.31, 0.64);
+    syncVerticalScroll(skillsContent, 0.80, 0.92);
 
     const phase = getPhase(progress);
     if (phase && phase.name !== lastPhase) {
@@ -205,9 +244,9 @@ export function initScrollPath() {
     const dy = window.scrollY - lastScrollY;
     const maxScroll = getTrackHeight() - window.innerHeight;
     const longPhases = [
-      { name: 'experience', start: 0.36, end: 0.66 },
-      { name: 'builds',     start: 0.66, end: 0.83 },
-      { name: 'skills',     start: 0.83, end: 0.95 }
+      { name: 'experience', start: 0.31, end: 0.64 },
+      { name: 'builds',     start: 0.64, end: 0.80 },
+      { name: 'skills',     start: 0.80, end: 0.98 }
     ];
 
     // Inside a long reading phase: only snap when the user is clearly leaving
@@ -232,6 +271,17 @@ export function initScrollPath() {
           doSnap(target * maxScroll);
           return;
         }
+
+        // Builds category snap: never let the user rest between the two
+        // category anchors. Snap to whichever project is currently active.
+        if (ph.name === 'builds' && progress > buildsFadeBand.start && progress < buildsFadeBand.end) {
+          const target = buildsCategory === 'kleos'
+            ? Math.max(ph.start + 0.01, buildsFadeBand.kleosAnchor)
+            : Math.min(ph.end - 0.01, buildsFadeBand.iustitiaAnchor);
+          doSnap(target * maxScroll);
+          return;
+        }
+
         return;
       }
     }
@@ -271,6 +321,8 @@ export function initScrollPath() {
   }
 
   function onScroll() {
+    const html = document.documentElement;
+    if (html.classList.contains('is-builds-open') || html.classList.contains('is-resume-locked')) return;
     if (!isAutoScrolling) {
       const maxScroll = getTrackHeight() - window.innerHeight;
       const progress = Math.max(0, Math.min(1, window.scrollY / maxScroll));
@@ -282,25 +334,41 @@ export function initScrollPath() {
 
   window.addEventListener('scroll', onScroll, { passive: true });
 
+  // External callers (e.g. floating hire bar, hero-letter clicks) can announce
+  // an auto-scroll so the snap timer is suppressed for the whole duration.
+  const AUTO_SCROLL_MS = 600;
+  let autoScrollTimer = null;
+  function onExternalAutoScroll(e) {
+    if (autoScrollTimer) clearTimeout(autoScrollTimer);
+    isAutoScrolling = true;
+    const duration = Number.isFinite(e?.detail?.duration) ? e.detail.duration : AUTO_SCROLL_MS;
+    autoScrollTimer = setTimeout(() => {
+      isAutoScrolling = false;
+      autoScrollTimer = null;
+    }, duration);
+  }
+  window.addEventListener('thoria-autoscroll', onExternalAutoScroll);
+
   // Resize: recalc track height and camera position
   let resizeRaf = null;
-  window.addEventListener('resize', () => {
+  function onResize() {
     if (resizeRaf) cancelAnimationFrame(resizeRaf);
     resizeRaf = requestAnimationFrame(() => {
       track.style.height = getTrackHeight() + 'px';
       update();
     });
-  });
+  }
+  window.addEventListener('resize', onResize);
 
   // Nav links: smooth-scroll to section progress
   const sectionProgress = {
     top: 0,
     hero: 0,
-    bio: 0.18,
-    experience: 0.36,
-    builds: 0.66,
-    skills: 0.83,
-    contact: 0.97
+    bio: 0.14,
+    experience: 0.31,
+    builds: 0.64,
+    skills: 0.80,
+    contact: 0.98
   };
 
   function onNavClick(e) {
@@ -315,12 +383,25 @@ export function initScrollPath() {
     setTimeout(() => { isAutoScrolling = false; }, 600);
   }
 
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', onNavClick);
-  });
+  const navLinks = Array.from(document.querySelectorAll('a[href^="#"]'));
+  navLinks.forEach(link => link.addEventListener('click', onNavClick));
 
   update();
-  observeAll(document.querySelectorAll('.reveal'), (el, visible) => {
+  const revealObserver = observeAll(document.querySelectorAll('.reveal'), (el, visible) => {
     if (visible) el.classList.add('visible');
   }, { threshold: 0.2 });
+
+  return function destroyScrollPath() {
+    if (snapTimer) clearTimeout(snapTimer);
+    if (autoScrollTimer) clearTimeout(autoScrollTimer);
+    if (resizeRaf) cancelAnimationFrame(resizeRaf);
+    if (raf) cancelAnimationFrame(raf);
+    window.removeEventListener('scroll', onScroll, { passive: true });
+    window.removeEventListener('resize', onResize);
+    window.removeEventListener('thoria-autoscroll', onExternalAutoScroll);
+    navLinks.forEach(link => link.removeEventListener('click', onNavClick));
+    if (typeof revealObserver === 'function') {
+      revealObserver();
+    }
+  };
 }

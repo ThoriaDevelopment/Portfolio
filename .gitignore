@@ -6,8 +6,12 @@ desktop.ini
 *.tmp
 __pycache__/
 *.pyc
+node_modules/
 issue*.png
 *.png.bak
 *.jpg.bak
 BUG_REPORT.md
 CHEAT_SHEET.md
+audit/shot-tmp/
+audit/downloads/
+*.output

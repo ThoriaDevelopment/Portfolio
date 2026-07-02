@@ -1,35 +1,69 @@
 import { getCapabilities } from './utils.js';
 
+const LETTER_TARGETS = {
+  T: { section: 'bio', category: null, label: 'Bio', short: 'Bio' },
+  H: { section: 'experience', category: null, label: 'Experience', short: 'Experience' },
+  O: { section: 'builds', category: 'kleos', label: 'Kleos', short: 'Kleos' },
+  R: { section: 'builds', category: 'iustitia', label: 'Iustitia', short: 'Iustitia' },
+  I: { section: 'skills', category: null, label: 'Skills', short: 'Skills' },
+  A: { section: 'contact', category: null, label: 'Contact', short: 'Contact' }
+};
+
+function navigateFromHero(target) {
+  const sectionProgress = {
+    hero: 0,
+    bio: 0.14,
+    experience: 0.31,
+    builds: 0.64,
+    skills: 0.80,
+    contact: 0.98
+  };
+
+  // Match the scroll-path track height exactly so the destination aligns with
+  // the nav links and snap logic.
+  const maxScroll = Math.max(0, window.innerHeight * 8 - window.innerHeight);
+  const dest = Math.round((sectionProgress[target.section] ?? 0) * maxScroll);
+  if (maxScroll <= 0) return;
+
+  // Tell scroll-path we are auto-scrolling so its snap logic doesn't fight us.
+  // A longer timeout (1.1 s) covers the smooth-scroll + settle time.
+  window.dispatchEvent(new CustomEvent('thoria-autoscroll', {
+    bubbles: true,
+    detail: { duration: 1100 }
+  }));
+
+  if (target.section === 'builds' && target.category) {
+    const grid = document.querySelector('.builds-grid');
+    if (grid) {
+      grid.classList.toggle('is-kleos', target.category === 'kleos');
+      grid.classList.toggle('is-iustitia', target.category === 'iustitia');
+    }
+    window.dispatchEvent(new CustomEvent('buildscategorychange', {
+      detail: { category: target.category, direction: 'hero' }
+    }));
+  }
+
+  window.scrollTo({ top: dest, behavior: 'smooth' });
+}
+
 export function initHeroText() {
   const caps = getCapabilities();
   const rgbText = document.querySelector('.rgb-text');
   if (!rgbText) return;
 
-  // Split into letters for reveal
-  const chars = rgbText.childNodes;
-  // We need to wrap the actual text content, not the yellow span
-  const textNode = Array.from(rgbText.childNodes).find(n => n.nodeType === 3);
-  if (textNode) {
-    const letters = textNode.textContent.trim().split('').map((l, i) => {
-      return `<span class="rgb-char" style="display:inline-block;opacity:0;transform:translateY(40px) rotateX(30deg)">${l === ' ' ? '&nbsp;' : l}</span>`;
-    }).join('');
-    rgbText.innerHTML = letters;
-  }
+  const rawText = (rgbText.getAttribute('data-text') || rgbText.textContent).trim();
+
+  // Split into individual letters for the full-width, interactive headline.
+  rgbText.innerHTML = rawText.split('').map((l) => {
+    const char = l === ' ' ? '&nbsp;' : l;
+    return `<span class="rgb-char" data-char="${char}" style="opacity:0;transform:translateY(40px) rotateX(30deg)">${char}</span>`;
+  }).join('');
+
+  const chars = Array.from(rgbText.querySelectorAll('.rgb-char'));
 
   if (!caps.isMinimal) {
-    rgbText.classList.add('rgb-filter');
-
-    // Build full RGB yellow layer if not present
-    if (!rgbText.querySelector('.rgb-yellow')) {
-      const yellow = document.createElement('span');
-      yellow.className = 'rgb-yellow';
-      yellow.setAttribute('aria-hidden', 'true');
-      yellow.textContent = rgbText.getAttribute('data-text') || rgbText.textContent;
-      rgbText.appendChild(yellow);
-    }
-
     anime({
-      targets: '.rgb-char',
+      targets: chars,
       opacity: [0, 1],
       translateY: [40, 0],
       rotateX: [30, 0],
@@ -38,8 +72,7 @@ export function initHeroText() {
       easing: 'easeOutExpo'
     });
   } else {
-    rgbText.classList.remove('rgb-filter');
-    document.querySelectorAll('.rgb-char').forEach(el => {
+    chars.forEach(el => {
       el.style.opacity = 1;
       el.style.transform = 'none';
     });
@@ -47,48 +80,36 @@ export function initHeroText() {
 
   if (caps.isMinimal) return;
 
-  // Continuous RGB wave — paused when tab hidden
-  let t = 0;
-  let waveRaf = null;
-  let waveActive = true;
-  function wave() {
-    if (!waveActive) return;
-    t += 0.02;
-    const x = Math.sin(t) * 4 + Math.cos(t * 1.3) * 2;
-    const y = Math.cos(t * 0.7) * 3;
-    rgbText.style.setProperty('--rgb-x', x + 'px');
-    rgbText.style.setProperty('--rgb-y', y + 'px');
-    waveRaf = requestAnimationFrame(wave);
-  }
-  wave();
+  // Per-letter hover interaction — CSS handles the visual lift/pop.
+  chars.forEach(char => {
+    char.addEventListener('mouseenter', () => char.classList.add('is-active'));
+    char.addEventListener('mouseleave', () => char.classList.remove('is-active'));
+    char.addEventListener('focus', () => char.classList.add('is-active'));
+    char.addEventListener('blur', () => char.classList.remove('is-active'));
 
-  // SVG turbulence animation — paused when tab hidden
-  const turbulence = document.querySelector('#rgb-displacement feTurbulence');
-  let turbRaf = null;
-  let turbActive = true;
-  if (turbulence) {
-    let tf = 0;
-    function animateTurbulence() {
-      if (!turbActive) return;
-      tf += 0.003;
-      const baseX = 0.01 + Math.sin(tf) * 0.005;
-      const baseY = 0.02 + Math.cos(tf * 0.7) * 0.01;
-      turbulence.setAttribute('baseFrequency', `${baseX} ${baseY}`);
-      turbRaf = requestAnimationFrame(animateTurbulence);
-    }
-    animateTurbulence();
-  }
+    // Clicking a letter jumps to the mapped section/category.
+    const target = LETTER_TARGETS[char.getAttribute('data-char')];
+    if (!target) return;
 
-  document.addEventListener('visibilitychange', () => {
-    const hidden = document.hidden;
-    waveActive = !hidden;
-    turbActive = !hidden;
-    if (!hidden) {
-      if (!waveRaf) wave();
-      if (turbulence && !turbRaf) animateTurbulence();
-    } else {
-      if (waveRaf) { cancelAnimationFrame(waveRaf); waveRaf = null; }
-      if (turbRaf) { cancelAnimationFrame(turbRaf); turbRaf = null; }
-    }
+    char.style.cursor = 'pointer';
+    char.setAttribute('role', 'link');
+    char.setAttribute('aria-label', `Go to ${target.label}`);
+    char.setAttribute('tabindex', '0');
+
+    const hint = document.createElement('span');
+    hint.className = 'rgb-char-hint';
+    hint.textContent = target.short;
+    char.appendChild(hint);
+
+    char.addEventListener('click', () => navigateFromHero(target));
+    char.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        navigateFromHero(target);
+      }
+    });
   });
+
+  // Cleanup hook in case initHeroText is ever re-run.
+  rgbText.dataset.heroTextInit = 'true';
 }

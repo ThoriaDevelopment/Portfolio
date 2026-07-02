@@ -19,42 +19,55 @@
 }
 
 .door-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 0;
-  width: 120vw;
-  height: 120vh;
-}
-
-#door.is-active {
+  position: absolute;
+  inset: -10%;
   display: flex;
-}
-
-.door-cell {
-  display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  gap: 0;
+  transform: rotate(-12deg) scale(1.05);
+  opacity: 0;
+}
+
+#door.is-revealing .door-grid {
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+.door-wall-row {
+  white-space: nowrap;
   font-family: var(--display);
   font-weight: 900;
-  font-size: clamp(4rem, 18vw, 10rem);
+  font-size: clamp(2.2rem, 6vw, 5rem);
   text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: var(--ink);
-  line-height: 1;
-  opacity: 0;
-  transform: scale(0.85);
+  line-height: 1.05;
+  opacity: 0.18;
+  user-select: none;
+  transform: translateX(var(--row-offset, 0));
 }
 
-.door-cell:nth-child(5n+1) { opacity: 0.9; }
-.door-cell:nth-child(5n+2) { opacity: 0.75; }
-.door-cell:nth-child(5n+3) { opacity: 0.6; }
-.door-cell:nth-child(5n+4) { opacity: 0.75; }
-.door-cell:nth-child(5n+5) { opacity: 0.5; }
+.door-wall-row span {
+  display: inline-block;
+  animation: doorScroll 18s linear infinite;
+  animation-direction: var(--row-dir, normal);
+}
 
-/* Circular reveal: anime.js cannot animate clip-path, so we drive it with CSS.
-   The door starts fully visible as the intro overlay; once the management word
-   has been showcased for ~1s, .is-opening triggers the clip shrink that reveals
-   the THORIA hero behind it. */
+.door-wall-row:nth-child(7),
+.door-wall-row:nth-child(8) {
+  opacity: 0.95;
+  color: var(--paper);
+  text-shadow: 0 0 40px color-mix(in srgb, var(--magenta) 60%, transparent);
+}
+
+@keyframes doorScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Circular reveal: once the wall has been showcased, .is-opening triggers the
+   clip shrink that reveals the THORIA hero behind it. */
 #door.is-revealing {
   clip-path: circle(150% at 50% 50%);
 }

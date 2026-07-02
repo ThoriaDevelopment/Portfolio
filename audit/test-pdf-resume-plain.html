@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../css/effects.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+  <div style="height: 200vh; background: #eee;">Scroll down to see source</div>
+  <div id="source" class="resume-pdf-source">
+    <header class="pdf-header">
+      <h1>THORIA'S MANAGEMENT</h1>
+      <p>Minecraft Server Administrator & Media Manager</p>
+    </header>
+    <p>Hi, ! I'm Thoria. I'm a 20 year old Minecraft server Administrator and Media Manager with 3 years of experience... (truncated for test)</p>
+    <h2>Who am I</h2>
+    <ul>
+      <li>Located in EU · Turkey, flexible hours.</li>
+      <li>Turkish (native) · English (practically native).</li>
+      <li>Over three years of server administration experience.</li>
+    </ul>
+    <h2>Look-over</h2>
+    <ul>
+      <li>Over 1k+ users online simultaneously.</li>
+      <li>Managed over 30 content creators.</li>
+      <li>Handled over 600 support tickets.</li>
+    </ul>
+    <h2>Why Me?</h2>
+    <ul>
+      <li>Built ArchMC's official Community Guidelines from scratch.</li>
+      <li>Developed payment allocation tools for content creators.</li>
+      <li>Created Kleos media management panel and Iustitia anti-cheat.</li>
+    </ul>
+    <h2>Projects</h2>
+    <h3>Kleos</h3>
+    <p>Media management dashboard for tracking content creators.</p>
+    <h3>Iustitia</h3>
+    <p>Client-sided anti-cheat for Minecraft 1.21.11 (Fabric).</p>
+  </div>
+  <button onclick="downloadPdf()">Download</button>
+  <script>
+    function downloadPdf() {
+      const source = document.getElementById('source');
+      html2pdf().set({
+        margin: [28, 28, 28, 28],
+        filename: 'Thoria-Resume-test.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+        jsPDF: { unit: 'pt', format: 'letter', orientation: 'portrait' },
+        pagebreak: { mode: ['css', 'legacy'], avoid: ['p', 'li'] }
+      }).from(source).save();
+    }
+  </script>
+</body>
+</html>

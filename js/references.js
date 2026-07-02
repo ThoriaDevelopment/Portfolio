@@ -4,28 +4,28 @@ const REFERENCES = [
   {
     name: 'Velt',
     role: 'Administrator · ArchMC Network',
-    avatar: 'V',
+    avatar: 'Assets/Referances/Velt.png',
     discordId: '221025167684403202',
     displayHandle: '@v7lt'
   },
   {
     name: 'MacDonald',
     role: 'Administrator · VoidSentMC',
-    avatar: 'M',
+    avatar: 'Assets/Referances/MacDonald.png',
     discordId: '1063895717346820128',
     displayHandle: '@tertlon'
   },
   {
     name: 'Namen',
     role: 'Senior Moderator · ArchMC',
-    avatar: 'N',
+    avatar: 'Assets/Referances/Namensauswahl.png',
     discordId: '1105363437929898135',
     displayHandle: '@namensauswahl'
   },
   {
     name: 'Sencinion',
     role: 'Owner · DuckyMC',
-    avatar: 'S',
+    avatar: 'Assets/Referances/Sencinion.png',
     discordId: '1402708145025056820',
     displayHandle: 'Sencinion'
   }
@@ -37,7 +37,9 @@ export function initReferences() {
 
   grid.innerHTML = REFERENCES.map(r => `
     <article class="reference-card reveal" data-name="${r.name}">
-      <div class="ref-avatar" aria-hidden="true">${r.avatar}</div>
+      <div class="ref-avatar" aria-hidden="true">
+        <img src="${r.avatar}" alt="" loading="lazy" decoding="async">
+      </div>
       <div class="ref-body">
         <h3 class="ref-name">${r.name}</h3>
         <p class="ref-role">${r.role}</p>

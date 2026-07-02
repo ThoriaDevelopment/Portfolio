@@ -17,7 +17,7 @@ const { chromium } = require('playwright');
     await p.waitForTimeout(1200);
   };
 
-  for (const pr of [0.20, 0.27, 0.34, 0.42, 0.54, 0.66, 0.74, 0.78, 0.82, 0.88, 0.94, 0.97]) {
+  for (const pr of [0.07, 0.14, 0.23, 0.31, 0.47, 0.60, 0.64, 0.70, 0.78, 0.85, 0.92, 0.99]) {
     await set(pr);
     const state = await p.evaluate(() => ({
       scrollY: window.scrollY,

@@ -1,6 +1,11 @@
 import { getCapabilities } from './utils.js';
 
-export function initDoor(onComplete) {
+const DOOR_TEXT = 'MANAGEMENT  ADMINISTRATION  ';
+
+export function initDoor(options) {
+  const onComplete = typeof options === 'function' ? options : options?.onComplete;
+  const onBeforeOpen = typeof options === 'function' ? null : options?.onBeforeOpen;
+
   const door = document.getElementById('door');
   if (!door) {
     if (onComplete) onComplete();
@@ -21,58 +26,88 @@ export function initDoor(onComplete) {
     return;
   }
 
+  const grid = door.querySelector('.door-grid');
+
+  // Build the Stanley-style repeating text wall.
+  function buildTextWall() {
+    if (!grid) return;
+    grid.innerHTML = '';
+    grid.classList.add('door-wall');
+    const rowCount = 14;
+    const phrase = DOOR_TEXT.repeat(6);
+    for (let i = 0; i < rowCount; i++) {
+      const row = document.createElement('div');
+      row.className = 'door-wall-row';
+      row.innerHTML = `<span>${phrase}</span><span>${phrase}</span>`;
+      // alternate rows get different starting offsets for the cascade
+      row.style.setProperty('--row-offset', `${-i * 8}vw`);
+      row.style.setProperty('--row-dir', i % 2 === 0 ? 'normal' : 'reverse');
+      grid.appendChild(row);
+    }
+  }
+
+  buildTextWall();
+
+  // If reduced motion, skip the wall and reveal hero immediately.
+  if (caps.prefersReducedMotion) {
+    door.classList.add('is-active', 'is-revealing', 'is-opening');
+    setTimeout(() => {
+      door.classList.remove('is-active', 'is-revealing', 'is-opening');
+      door.style.display = 'none';
+      door.style.clipPath = '';
+      if (onBeforeOpen) onBeforeOpen();
+      if (onComplete) onComplete();
+    }, 50);
+    return;
+  }
+
+  door.style.opacity = '0';
   door.classList.add('is-active', 'is-revealing');
   document.body.style.overflow = 'hidden';
-
-  const grid = door.querySelector('.door-grid');
-  const cells = door.querySelectorAll('.door-cell');
 
   function finishDoor() {
     door.classList.remove('is-active', 'is-revealing', 'is-opening');
     door.style.display = 'none';
+    door.style.opacity = '';
     door.style.clipPath = '';
     document.body.style.overflow = '';
     if (onComplete) onComplete();
   }
 
-  // Letters pop in from the left in a wave, then hold for ~1 second so the
-  // word MANAGEMENT is readable before the circular reveal starts.
-  anime.timeline({ easing: 'easeInOutExpo' })
+  // Crossfade the door in over the fading loader, then pop in the wall.
+  anime.timeline({ easing: 'easeOutExpo' })
     .add({
-      targets: cells,
-      scale: [0.85, 1],
-      opacity: function(el, i) {
-        const base = [0.9, 0.75, 0.6, 0.75, 0.5];
-        return [0, base[i % 5]];
-      },
-      delay: anime.stagger(55, { from: 'first' }),
+      targets: door,
+      opacity: [0, 1],
+      duration: 600
+    })
+    .add({
+      targets: '.door-wall-row',
+      opacity: [0, function(el, i) { return i === 6 || i === 7 ? 0.95 : 0.18; }],
+      translateY: [40, 0],
+      delay: anime.stagger(50, { from: 'first' }),
       duration: 700
     })
-    // Showcase the word MANAGEMENT for ~0.6 second before revealing the hero.
+    // Showcase the wall for ~1.2 seconds before revealing the hero.
     .add({
-      targets: grid,
-      scale: 1,
-      duration: 600,
+      targets: door,
+      duration: 1200,
       easing: 'linear'
     })
     .finished.then(() => {
+      // Hide the loader and reveal the hero now so it shows through the door as it opens.
+      if (onBeforeOpen) onBeforeOpen();
+
       // Begin the circular reveal and the outward ripple together.
       door.classList.add('is-opening');
 
-      anime.timeline({ easing: 'easeInOutExpo' })
-        .add({
-          targets: grid,
-          scale: [1, 1.35],
-          duration: 900,
-          easing: 'cubicBezier(0.45, 0, 0.15, 1)'
-        })
-        .add({
-          targets: cells,
-          opacity: 0,
-          scale: 1.15,
-          duration: 500,
-          delay: anime.stagger(20, { from: 'last' })
-        }, '+=100')
-        .finished.then(finishDoor);
+      anime({
+        targets: '.door-wall-row',
+        opacity: 0,
+        scale: 1.08,
+        duration: 700,
+        delay: anime.stagger(30, { from: 'last' }),
+        easing: 'easeInOutExpo'
+      }).finished.then(finishDoor);
     });
 }

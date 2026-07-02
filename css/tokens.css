@@ -90,6 +90,8 @@
 [data-mood="bio"] {
   --mood-bg: var(--paper);
   --mood-bg-2: var(--paper-2);
+  --mood-surface: var(--mist);
+  --mood-surface-2: var(--paper-2);
   --mood-text: var(--text-inverse);
   --mood-muted: var(--muted-light);
   --mood-accent: var(--magenta);

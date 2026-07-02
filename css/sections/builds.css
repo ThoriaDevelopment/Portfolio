@@ -22,7 +22,6 @@
 
 .project-card:hover {
   border-color: var(--mood-accent);
-  transform: translateY(-6px);
   box-shadow: 0 24px 60px -30px color-mix(in srgb, var(--mood-accent) 25%, transparent);
 }
 
@@ -45,19 +44,60 @@
   min-width: 0;
 }
 
+.project-title-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
 .project-name {
   font-family: var(--serif);
   font-style: italic;
   font-size: clamp(2.2rem, 5vw, 3.8rem);
   font-weight: 600;
   color: var(--mood-text);
-  margin-bottom: 8px;
   transition: color var(--transition-fast);
 }
 
 .project-card:hover .project-name,
 .project-card.is-open .project-name {
   color: var(--mood-accent);
+}
+
+.project-prev,
+.project-next {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--mood-border);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--mood-muted);
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+  flex: none;
+}
+
+.project-prev svg,
+.project-next svg {
+  width: 18px;
+  height: 18px;
+}
+
+.project-prev:hover,
+.project-next:hover {
+  color: var(--mood-accent);
+  border-color: var(--mood-accent);
+  transform: scale(1.08);
+}
+
+.project-prev:focus-visible,
+.project-next:focus-visible {
+  outline: 2px solid var(--mood-accent);
+  outline-offset: 2px;
 }
 
 .project-summary {
@@ -105,6 +145,13 @@
 
 .project-body-inner {
   overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.project-card.is-open .project-body-inner {
+  opacity: 1;
+  transition-delay: 0.2s;
 }
 
 .project-detail {
@@ -115,8 +162,8 @@
 }
 
 html.is-scroll-path .builds-grid .project-card.is-open .project-body {
-  max-height: 45vh;
-  overflow-y: auto;
+  max-height: none;
+  overflow-y: visible;
 }
 
 .project-detail h4 {
@@ -182,7 +229,264 @@ html.is-scroll-path [data-section="builds"] {
   opacity: 0.32;
 }
 
-/* Scroll-path cross-fade stage */
+.builds-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--mood-bg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.builds-overlay.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.expand-frame {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.expand-line {
+  position: absolute;
+  background: var(--mood-accent);
+  opacity: 0.55;
+  transition: left 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+              top 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+              width 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+              height 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+              opacity 0.4s ease;
+}
+
+.expand-card {
+  position: absolute;
+  border: 1px solid var(--mood-border);
+  background: linear-gradient(180deg, var(--mood-surface-2), var(--mood-bg));
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: left 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+              top 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+              width 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+              height 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+              border-radius 0.35s ease;
+}
+
+.expand-card::-webkit-scrollbar { width: 6px; }
+.expand-card::-webkit-scrollbar-thumb {
+  background: var(--mood-border-2);
+  border-radius: 3px;
+}
+
+.builds-overlay.is-open .expand-line {
+  opacity: 0.2;
+}
+
+.expand-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 28px;
+  align-items: center;
+  padding: 36px 40px;
+  transition: padding 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+              grid-template-columns 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.expand-card.is-open .expand-header {
+  grid-template-columns: 1fr 240px;
+  gap: 48px;
+  padding: 72px 80px 48px;
+}
+
+.expand-hero {
+  min-width: 0;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.expand-card.is-open .expand-hero {
+  transform: translateX(0);
+}
+
+.expand-header .project-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 600;
+  color: var(--mood-text);
+  margin-bottom: 8px;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+              font-size 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+              opacity 0.55s ease;
+  will-change: transform;
+}
+
+.expand-card.is-open .expand-header .project-name {
+  font-size: clamp(2.8rem, 6vw, 4.6rem);
+}
+
+.expand-header .project-summary {
+  font-size: 1rem;
+  color: var(--mood-muted);
+  max-width: 560px;
+  margin-bottom: 14px;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+              opacity 0.55s ease;
+  will-change: transform;
+}
+
+.expand-card.is-open .expand-header .project-summary {
+  max-width: 640px;
+  font-size: 1.05rem;
+}
+
+.expand-header .project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+              opacity 0.55s ease;
+  will-change: transform;
+}
+
+.expand-header .project-thumb {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--mood-accent) 12%, var(--mood-bg-2)), var(--mood-bg-2));
+  border: 1px solid var(--mood-border);
+  padding: 20px;
+  flex: none;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+              opacity 0.55s ease,
+              width 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+              height 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: transform;
+}
+
+.expand-card.is-open .expand-header .project-thumb {
+  width: 220px;
+  height: 220px;
+}
+
+.expand-body {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.expand-body.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.25s;
+}
+
+.expand-body .project-detail {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.expand-body .project-detail h4 {
+  font-family: var(--display);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--mood-text);
+  opacity: 0;
+  transform: translateY(16px);
+  animation: none;
+}
+
+.expand-body.is-revealed .project-detail h4 {
+  animation: buildTextIn 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+.expand-body .project-detail p,
+.expand-body .project-detail li {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: none;
+}
+
+.expand-body.is-revealed .project-detail p,
+.expand-body.is-revealed .project-detail li {
+  animation: buildTextIn 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+.expand-body .project-detail .project-actions {
+  grid-column: 1 / -1;
+  margin-top: 24px;
+}
+
+/* Stagger the body reveal */
+.expand-body.is-revealed .project-detail > *:nth-child(1) h4,
+.expand-body.is-revealed .project-detail > *:nth-child(1) > p:first-of-type { animation-delay: 0.30s; }
+.expand-body.is-revealed .project-detail > *:nth-child(2) h4,
+.expand-body.is-revealed .project-detail > *:nth-child(2) > p:first-of-type { animation-delay: 0.38s; }
+.expand-body.is-revealed .project-detail li:nth-child(1) { animation-delay: 0.44s; }
+.expand-body.is-revealed .project-detail li:nth-child(2) { animation-delay: 0.50s; }
+.expand-body.is-revealed .project-detail li:nth-child(3) { animation-delay: 0.56s; }
+.expand-body.is-revealed .project-detail li:nth-child(4) { animation-delay: 0.62s; }
+.expand-body.is-revealed .project-detail li:nth-child(5) { animation-delay: 0.68s; }
+.expand-body.is-revealed .project-detail li:nth-child(6) { animation-delay: 0.74s; }
+.expand-body.is-revealed .project-detail li:nth-child(7) { animation-delay: 0.80s; }
+.expand-body.is-revealed .project-detail .project-actions { animation-delay: 0.86s; }
+
+@keyframes buildTextIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.builds-overlay .project-close {
+  display: flex;
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 1001;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--mood-border);
+  background: var(--mood-surface);
+  color: var(--mood-text);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.35s ease 0.35s,
+              transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) 0.35s,
+              border-color var(--transition-fast),
+              color var(--transition-fast);
+}
+
+.builds-overlay.is-open .project-close {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.builds-overlay.is-open .project-close:hover {
+  border-color: var(--mood-accent);
+  color: var(--mood-accent);
+  transform: scale(1.08);
+}
+
+@media (max-width: 900px) {
+  .expand-header { grid-template-columns: 1fr; }
+  .expand-header .project-thumb { width: 120px; height: 120px; }
+  .expand-body .project-detail { grid-template-columns: 1fr; padding: 0 24px 40px; }
+}
+
+/* Scroll-path category stage */
 html.is-scroll-path .builds-grid {
   position: relative;
   display: block;
@@ -193,34 +497,39 @@ html.is-scroll-path .builds-grid {
 
 html.is-scroll-path .builds-grid .project-card {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  left: 50%;
+  top: 24px;
+  transform: translateX(-50%);
+  width: min(960px, 100%);
+  max-width: 100%;
+  height: auto;
+  max-height: calc(100% - 24px);
   overflow-y: auto;
   overflow-x: hidden;
-  pointer-events: auto;
-  transition: opacity 0.55s ease;
+  transition: opacity 0.55s cubic-bezier(0.2, 0.7, 0.2, 1),
+              transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1);
+  pointer-events: none;
 }
 
-html.is-scroll-path .builds-grid .project-card:nth-child(1) {
-  opacity: calc(1 - var(--builds-fade, 0));
-}
-
-html.is-scroll-path .builds-grid .project-card:nth-child(2) {
-  opacity: var(--builds-fade, 0);
-}
-
-html.is-scroll-path .builds-grid.is-fade-a .project-card:nth-child(1),
-html.is-scroll-path .builds-grid.is-fade-b .project-card:nth-child(2) {
+html.is-scroll-path .builds-grid.is-kleos .project-card:nth-child(1),
+html.is-scroll-path .builds-grid.is-iustitia .project-card:nth-child(2) {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
   z-index: 2;
   pointer-events: auto;
 }
 
-html.is-scroll-path .builds-grid.is-fade-a .project-card:nth-child(2),
-html.is-scroll-path .builds-grid.is-fade-b .project-card:nth-child(1),
-html.is-scroll-path .builds-grid.is-fade-mix .project-card {
+html.is-scroll-path .builds-grid.is-kleos .project-card:nth-child(2),
+html.is-scroll-path .builds-grid.is-iustitia .project-card:nth-child(1) {
+  opacity: 0;
+  transform: translateX(-50%) translateY(18px) scale(0.985);
   z-index: 1;
   pointer-events: none;
+}
+
+html.is-scroll-path .builds-grid .project-prev,
+html.is-scroll-path .builds-grid .project-next {
+  pointer-events: auto;
 }
 
 html.is-scroll-path .builds-grid .project-card::-webkit-scrollbar {

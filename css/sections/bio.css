@@ -11,7 +11,7 @@
   display: grid;
   grid-template-columns: 1.4fr 1fr;
   gap: 28px;
-  align-items: start;
+  align-items: center;
 }
 
 .bio-headline {
@@ -43,6 +43,27 @@
   gap: 14px;
 }
 
+.bio-portrait {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid rgba(11, 13, 16, 0.10);
+  background: var(--paper-2);
+  box-shadow: 0 18px 44px -12px rgba(11, 13, 16, 0.22);
+}
+
+.bio-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
 .bio-side h3 {
   font-family: var(--mono);
   font-size: 0.64rem;
@@ -61,6 +82,7 @@
 @media (max-width: 900px) {
   .bio-panel { grid-template-columns: 1fr; gap: 24px; }
   .bio-headline { max-width: none; }
+  .bio-portrait { max-width: 260px; }
 }
 
 html:not(.is-scroll-path) [data-section="bio"] {

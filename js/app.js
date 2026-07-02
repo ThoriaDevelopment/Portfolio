@@ -86,6 +86,7 @@ function boot() {
 
   // Full desktop scroll-path experience
   setScrollPath(true);
+  let destroyScrollPath = null;
 
   const stopLoaderEffects = initLoader(() => {
     // Wait for the user's first scroll before opening the door.
@@ -98,23 +99,28 @@ function boot() {
       window.removeEventListener('keydown', onKeyDown);
 
       const loader = document.getElementById('loader');
-      if (loader) loader.classList.add('is-exiting');
       stopLoaderEffects();
 
-      // Reveal hero content immediately so it is visible behind the opening door.
-      document.querySelectorAll('[data-section="hero"] .reveal').forEach(el => el.classList.add('visible'));
-
-      initDoor(() => {
-        if (loader) {
-          loader.classList.add('is-hidden');
-          loader.style.display = 'none';
-        }
-        document.body.style.overflow = '';
-        initScrollPath();
-        initScrollBlur();
-        initReveals();
-        if (!caps.isMinimal && caps.finePointer) {
-          initGeodeCursor();
+      // Keep the loader fully visible until the door has covered it, then swap
+      // directly to the hero just before the circular reveal.
+      initDoor({
+        onBeforeOpen: () => {
+          if (loader) {
+            loader.classList.add('is-hidden');
+            loader.style.display = 'none';
+          }
+          // Reveal hero content only once the loader is gone and the door is
+          // about to open, so the circular clip-path exposes the hero cleanly.
+          document.querySelectorAll('[data-section="hero"] .reveal').forEach(el => el.classList.add('visible'));
+        },
+        onComplete: () => {
+          document.body.style.overflow = '';
+          destroyScrollPath = initScrollPath();
+          initScrollBlur();
+          initReveals();
+          if (!caps.isMinimal && caps.finePointer) {
+            initGeodeCursor();
+          }
         }
       });
     }
@@ -128,10 +134,16 @@ function boot() {
     window.addEventListener('wheel', openDoor, { passive: true });
     window.addEventListener('keydown', onKeyDown);
 
-    // Escape hatch: click/tap the scroll hint also opens the door
+    // Escape hatch: click/tap the loader itself (or the scroll hint) also opens the door.
+    // We use pointerdown so it fires before any drag/scroll gesture and still works on touch.
+    if (loader) {
+      loader.addEventListener('pointerdown', openDoor, { passive: true });
+    }
+
     const scrollHint = document.querySelector('.scroll-hint');
     if (scrollHint) scrollHint.addEventListener('click', openDoor);
   });
+
 
   // Re-evaluate layout on resize or reduced-motion change
   let lastScrollPath = true;
@@ -139,6 +151,9 @@ function boot() {
     const now = shouldUseScrollPath();
     if (now === lastScrollPath) return;
     lastScrollPath = now;
+    if (!now) {
+      if (destroyScrollPath) { destroyScrollPath(); destroyScrollPath = null; }
+    }
     setScrollPath(now);
     if (!now) {
       destroyGeodeCursor();

@@ -45,14 +45,6 @@
 <body data-mood="hero">
 
   <!-- SVG filters -->
-  <svg width="0" height="0" aria-hidden="true" class="visually-hidden">
-    <defs>
-      <filter id="rgb-displacement">
-        <feTurbulence type="fractalNoise" baseFrequency="0.01 0.02" numOctaves="2" result="noise" />
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G" />
-      </filter>
-    </defs>
-  </svg>
 
   <!-- Loader -->
   <div id="loader" data-mood="loader">
@@ -66,10 +58,7 @@
 
   <!-- MANAGEMENT door transition -->
   <div id="door" data-mood="loader">
-    <div class="door-grid" aria-hidden="true">
-      <div class="door-cell">M</div><div class="door-cell">A</div><div class="door-cell">N</div><div class="door-cell">A</div><div class="door-cell">G</div>
-      <div class="door-cell">E</div><div class="door-cell">M</div><div class="door-cell">E</div><div class="door-cell">N</div><div class="door-cell">T</div>
-    </div>
+    <div class="door-grid" aria-hidden="true"></div>
   </div>
 
   <!-- Geode cursor -->
@@ -77,6 +66,9 @@
 
   <!-- Scroll blur overlay -->
   <div id="scrollBlur" class="scroll-blur" aria-hidden="true"></div>
+
+  <!-- Nav fade for sections where the background competes with nav text -->
+  <div class="nav-fade" aria-hidden="true"></div>
 
   <!-- Toast stack -->
   <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="true"></div>
@@ -147,36 +139,8 @@
               </div>
 
               <div class="bio-side">
-                <div class="reveal">
-                  <h3>Languages</h3>
-                  <div class="bio-stack">
-                    <span class="chip chip-static">Turkey · native</span>
-                    <span class="chip chip-static">English · fluent</span>
-                  </div>
-                </div>
-
-                <div class="reveal">
-                  <h3>Tooling</h3>
-                  <div class="bio-stack">
-                    <span class="chip chip-static">Python</span>
-                    <span class="chip chip-static">JavaScript</span>
-                    <span class="chip chip-static">PyQt6</span>
-                    <span class="chip chip-static">Fabric / Java</span>
-                    <span class="chip chip-static">Polar</span>
-                    <span class="chip chip-static">Vulcan</span>
-                    <span class="chip chip-static">Grim</span>
-                    <span class="chip chip-static">Kleos</span>
-                  </div>
-                </div>
-
-                <div class="reveal">
-                  <h3>At a glance</h3>
-                  <div class="bio-stack">
-                    <span class="chip chip-static">3+ years</span>
-                    <span class="chip chip-static">50 max staff</span>
-                    <span class="chip chip-static">30+ creators</span>
-                    <span class="chip chip-static">42k+ Discord</span>
-                  </div>
+                <div class="bio-portrait reveal" aria-label="Thoria profile portrait">
+                  <img src="Assets/Thoria/inrising.png" alt="Thoria profile" loading="lazy" decoding="async">
                 </div>
               </div>
             </div>
@@ -210,7 +174,7 @@
           <div class="exp-timeline reveal">
             <article class="exp-role">
               <div class="exp-role-head">
-                <h3>General Manager <span class="org">· ArchMC Network</span></h3>
+                <h3>Media Manager & Administrator <span class="org">· ArchMC Network</span></h3>
                 <span class="chip chip-static">~1k avg players · 42k+ Discord</span>
               </div>
               <p class="exp-meta">2024 – 2026 · Owned by Rule Your Own Game (EaglerCraft)</p>
@@ -304,9 +268,17 @@
 
             <!-- Kleos -->
             <article class="project-card reveal">
+              <button class="project-close" aria-label="Close project details">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+              </button>
               <div class="project-header" data-project-toggle role="button" tabindex="0" aria-expanded="false">
                 <div class="project-title-block">
-                  <h3 class="project-name">Kleos</h3>
+                  <div class="project-title-row">
+                    <h3 class="project-name">Kleos</h3>
+                    <button class="project-next" type="button" aria-label="Show Iustitia">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                  </div>
                   <p class="project-summary">A media-management dashboard that tracks multiple content creators across YouTube and Twitch from one offline-first SQLite panel.</p>
                   <div class="project-tags">
                     <span class="project-tag">Python</span>
@@ -356,9 +328,17 @@
 
             <!-- Iustitia -->
             <article class="project-card reveal">
+              <button class="project-close" aria-label="Close project details">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+              </button>
               <div class="project-header" data-project-toggle role="button" tabindex="0" aria-expanded="false">
                 <div class="project-title-block">
-                  <h3 class="project-name">Iustitia</h3>
+                  <div class="project-title-row">
+                    <h3 class="project-name">Iustitia</h3>
+                    <button class="project-prev" type="button" aria-label="Show Kleos">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    </button>
+                  </div>
                   <p class="project-summary">A purely client-sided Fabric anti-cheat for Minecraft 1.21.11. It watches other players through server-rebroadcast packets with zero outgoing traffic.</p>
                   <div class="project-tags">
                     <span class="project-tag">Fabric mod</span>
@@ -499,7 +479,7 @@
         <div class="contact-panel">
           <div class="contact-head reveal">
             <h2>Let's build something solid.</h2>
-            <p>I'm open for server administration, media management, and tooling roles. Reach out directly — I read every message.</p>
+            <p>If you own a Minecraft server and need help with management, creator programs or any sort of guidelines, contact me. I Keep it reachable™.</p>
           </div>
 
           <div class="contact-links reveal">
@@ -527,6 +507,14 @@
               <span class="hover-swap-a">Discord @inrising</span>
               <span class="hover-swap-b">Discord @inrising</span>
             </button>
+
+            <a class="contact-link hover-swap" href="https://youtube.com/@inrisings" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23.5 6.2a3 3 0 0 0-2.1-2.2C19.9 3.4 12 3.4 12 3.4s-7.9 0-9.4.6A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.2c1.5.6 9.4.6 9.4.6s7.9 0 9.4-.6a3 3 0 0 0 2.1-2.2A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z" />
+              </svg>
+              <span class="hover-swap-a">youtube.com/@inrisings</span>
+              <span class="hover-swap-b">youtube.com/@inrisings</span>
+            </a>
           </div>
 
 
@@ -582,8 +570,12 @@
     <button class="lb-next" id="lbNext" type="button" aria-label="Next image">›</button>
   </div>
 
+  <!-- Builds fullscreen overlay (outside the transformed camera) -->
+  <div id="builds-overlay" class="builds-overlay" aria-hidden="true"></div>
+
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script type="module" src="js/app.js"></script>
 </body>
 </html>

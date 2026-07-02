@@ -20,6 +20,11 @@
 }
 
 .nav-inner {
+  position: relative;
+  z-index: 2;
+}
+
+.nav-inner {
   width: min(var(--maxw), 92vw);
   margin: 0 auto;
   display: flex;

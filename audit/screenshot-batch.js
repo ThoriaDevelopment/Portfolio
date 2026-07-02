@@ -46,27 +46,27 @@ const { execSync } = require('child_process');
   await captureAt('03-hero', Date.now() - t0 + 4800);
 
   // 4. Bio (center of the bio phase)
-  await setProgress(0.27, 900);
+  await setProgress(0.23, 900);
   await captureAt('04-bio', Date.now() - t0 + 900 + 100);
 
   // 5. Experience — top of the scrollable content
-  await setProgress(0.46, 900);
+  await setProgress(0.41, 900);
   await captureAt('05-experience-top', Date.now() - t0 + 900 + 100);
 
   // 6. Experience — bottom of the scrollable content (VoidSent + proof tabs)
-  await setProgress(0.62, 900);
+  await setProgress(0.60, 900);
   await captureAt('06-experience-bottom', Date.now() - t0 + 900 + 100);
 
-  // 7. Builds (Kleos stage, before cross-fade swap)
-  await setProgress(0.70, 900);
+  // 7. Builds (Kleos stage, before category swap)
+  await setProgress(0.68, 900);
   await captureAt('07-builds', Date.now() - t0 + 900 + 100);
 
   // 8. Skills (near bottom so references are visible)
-  await setProgress(0.90, 900);
+  await setProgress(0.89, 900);
   await captureAt('08-skills', Date.now() - t0 + 900 + 100);
 
   // 9. Contact
-  await setProgress(0.96, 900);
+  await setProgress(0.99, 900);
   await captureAt('09-contact', Date.now() - t0 + 900 + 100);
 
   await browser.close();

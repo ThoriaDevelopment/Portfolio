@@ -9,12 +9,21 @@
 .hero-inner {
   position: relative;
   z-index: 2;
-  width: min(var(--maxw), 92vw);
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+}
+
+/* Keep supporting copy readable and centered while the headline spans full width */
+.hero-sub,
+.hero-meta,
+.hero-scroll-hint {
+  width: min(var(--maxw), 92vw);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hero-rgb {
@@ -29,21 +38,74 @@
 .hero-rgb .rgb-text {
   font-family: var(--display);
   font-weight: 900;
-  font-size: clamp(5rem, 16vw, 12rem);
-  line-height: 0.85;
-  letter-spacing: -0.02em;
+  font-size: clamp(5rem, 18vw, 14rem);
+  line-height: 0.88;
+  letter-spacing: 0;
   text-transform: uppercase;
   color: #fff;
-  display: inline-block;
-  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: baseline;
+  width: 100%;
   user-select: none;
   position: relative;
-  margin: 0 auto;
 }
 
 .hero-rgb .rgb-char {
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  flex: 0 0 auto;
   text-align: center;
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), color 0.35s ease;
+  cursor: default;
+  will-change: transform;
+}
+
+.hero-rgb .rgb-char-hint {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  transform: translate(-50%, -50%) scale(0.65);
+  opacity: 0;
+  pointer-events: none;
+  font-family: 'Montserrat', var(--sans);
+  font-size: 0.13em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: #fff;
+  text-shadow: 0 1px 0 #000, 1px 0 0 #000, -1px 0 0 #000, 0 -1px 0 #000,
+               0 2px 8px rgba(0, 0, 0, 0.55);
+  white-space: nowrap;
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+  z-index: 1;
+}
+
+/* Hover the headline: every letter lifts slightly and the RGB split intensifies */
+.hero-rgb .rgb-text:hover .rgb-char {
+  transform: translateY(-0.04em);
+}
+
+/* Hover an individual letter: stronger pop */
+.hero-rgb .rgb-text .rgb-char.is-active,
+.hero-rgb .rgb-text .rgb-char:hover {
+  transform: translateY(-0.12em) scale(1.06);
+  color: var(--mood-accent);
+}
+
+.hero-rgb .rgb-text .rgb-char:hover .rgb-char-hint,
+.hero-rgb .rgb-text .rgb-char.is-active .rgb-char-hint {
+  opacity: 1;
+  transform: translate(-50%, -62%) scale(1);
+}
+
+@media (max-width: 720px) {
+  .hero-rgb .rgb-text {
+    font-size: clamp(3.4rem, 15vw, 7rem);
+    line-height: 0.92;
+  }
 }
 
 .hero-sub {
