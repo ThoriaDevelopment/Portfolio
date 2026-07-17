@@ -1,4 +1,5 @@
-const RESUME_PATH = 'Assets/About%20Me/resume.txt';
+const RESUME_PATH = 'Assets/About%20Me/Resume.txt';
+const RESUME_PDF_PATH = 'Assets/Thoria/Resume.pdf';
 
 const SECTION_PROGRESS = {
   top: 0,
@@ -208,64 +209,13 @@ async function loadResume() {
   openResumeOverlay(overlay);
 }
 
-function buildPdfSource(raw) {
-  const source = document.createElement('div');
-  source.className = 'resume-pdf-source';
-  source.innerHTML = `
-    <header class="pdf-header">
-      <h1>THORIA'S MANAGEMENT</h1>
-      <p>Minecraft Server Administrator &amp; Media Manager</p>
-    </header>
-    ${parseResumeToHtml(raw)}
-  `;
-  return source;
-}
-
-async function downloadResumePdf() {
-  if (typeof html2pdf === 'undefined') {
-    alert('PDF generator is loading. Please try again in a moment.');
-    return;
-  }
-
-  let source;
-  let savedScroll = 0;
-  try {
-    const raw = await fetchResumeText();
-    source = buildPdfSource(raw);
-
-    // html2pdf/html2canvas cannot rasterise fixed or absolutely-positioned off-screen
-    // elements. Place the source in normal document flow right after the scroll track
-    // (so it is at the top of the page and behind the fixed viewport/overlay), scroll
-    // it into view, generate the PDF, then restore the previous scroll position.
-    const track = document.getElementById('scroll-track');
-    if (track && track.parentNode) {
-      track.parentNode.insertBefore(source, track.nextSibling);
-    } else {
-      document.body.appendChild(source);
-    }
-
-    savedScroll = window.scrollY;
-    source.scrollIntoView({ block: 'start', inline: 'nearest' });
-
-    const opt = {
-      margin: [28, 28, 28, 28],
-      filename: 'Thoria-Resume.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
-      jsPDF: { unit: 'pt', format: 'letter', orientation: 'portrait' },
-      pagebreak: { mode: ['css', 'legacy'], avoid: ['p', 'li'] }
-    };
-
-    await html2pdf().set(opt).from(source).save();
-    window.scrollTo(0, savedScroll);
-    source.parentNode.removeChild(source);
-  } catch (err) {
-    window.scrollTo(0, savedScroll);
-    if (source && source.parentNode) source.parentNode.removeChild(source);
-    alert('Could not generate PDF. You can still print the resume from your browser.');
-    // eslint-disable-next-line no-console
-    console.error(err);
-  }
+function downloadResumePdf() {
+  const link = document.createElement('a');
+  link.href = RESUME_PDF_PATH;
+  link.download = 'Thoria-Resume.pdf';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 
 export function initHireBar() {
