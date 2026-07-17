@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kleos — free media tracking for YouTube and Twitch communities</title>
+  <meta name="description" content="Kleos is a free, open-source desktop dashboard that tracks YouTube and Twitch creators. Offline-first, AI or keyword verification, leaderboards, and shareable HTML exports.">
+  <meta name="theme-color" content="#ff0000">
+
+  <meta property="og:title" content="Kleos — free media tracking for YouTube and Twitch communities">
+  <meta property="og:description" content="A free, open-source desktop dashboard for tracking creators across YouTube and Twitch. Built for community managers.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://thoria.fyi/kleos/assets/shot-main.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://thoria.fyi/kleos/assets/shot-main.png">
+
+  <link rel="icon" href="assets/kleos-icon.png">
+  <link rel="apple-touch-icon" href="assets/kleos-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/kleos.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="https://thoria.fyi/kleos">
+        <img src="assets/kleos-icon.png" alt="" class="brand-icon" width="32" height="32">
+        <span>Kleos</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#gallery">Screenshots</a>
+        <a href="#get">Download</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="nav-cta">
+        <a class="btn btn-primary" href="https://github.com/ThoriaDevelopment/Kleos/releases">Get Kleos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <div class="hero-badge"><span class="dot"></span> Free and open-source</div>
+      <h1>Track your creators without losing your mind.</h1>
+      <p class="tagline">Kleos is a desktop dashboard for community managers who are tired of spreadsheets. Pull YouTube and Twitch data into one offline-first panel, verify uploads with AI or keywords, and export clean reports your team can actually read.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="https://github.com/ThoriaDevelopment/Kleos/releases">Download latest release</a>
+        <a class="btn btn-outline btn-lg" href="https://github.com/ThoriaDevelopment/Kleos" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+      <p class="hero-meta">Windows installer included. Or run it from source with Python.</p>
+    </div>
+  </header>
+
+  <section class="strip">
+    <div class="container strip-inner">
+      <span class="strip-label">Built for</span>
+      <div class="chips">
+        <span class="chip">community managers</span>
+        <span class="chip">creator programs</span>
+        <span class="chip">server media teams</span>
+        <span class="chip">small networks</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section statement" id="statement">
+    <div class="container">
+      <div class="statement-inner">
+        <h2>Stop chasing links across twenty tabs.</h2>
+        <p>If you manage even a dozen creators, you know the drill: open YouTube Studio, open TwitchTracker, open a spreadsheet, paste numbers, forget whose turn it is to post. Kleos pulls public metadata into a local database and gives you one place to see who is active, what is verified, and how the whole community is trending.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-label fade-in-scroll">What it does</div>
+      <h2 class="section-title fade-in-scroll">Everything in one panel.</h2>
+      <p class="section-lead fade-in-scroll">No cloud account. No monthly fee. Just a clean dashboard that works after the first fetch.</p>
+
+      <div class="grid grid-3">
+        <div class="card slide-in-bottom delay-1">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          </div>
+          <h3>YouTube + Twitch</h3>
+          <p>Add creators by channel link. Kleos fetches uploads, streams, stats, and thumbnails from both platforms and keeps them in a local SQLite database.</p>
+        </div>
+        <div class="card slide-in-bottom delay-2">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+          </div>
+          <h3>Offline-first</h3>
+          <p>Once data is fetched, the whole dashboard works without internet. Your community history lives on your machine, not someone else's server.</p>
+        </div>
+        <div class="card slide-in-bottom delay-3">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+          </div>
+          <h3>AI or keyword verify</h3>
+          <p>Mark content as "In Community" manually, with keyword matching, or let Claude or Gemini decide against your community description. You pick the method.</p>
+        </div>
+        <div class="card slide-in-bottom delay-1">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          </div>
+          <h3>Leaderboards and charts</h3>
+          <p>See view trajectories, monthly upload activity, and ranked reports. Filter by role, content type, date range, and verified status.</p>
+        </div>
+        <div class="card slide-in-bottom delay-2">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          </div>
+          <h3>Shareable HTML exports</h3>
+          <p>Generate a self-contained dashboard page for your whole community or a single creator. Send it to stakeholders, post it in Discord, or host it anywhere.</p>
+        </div>
+        <div class="card slide-in-bottom delay-3">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <h3>Profiles and roles</h3>
+          <p>Keep separate communities isolated. Assign colored roles, custom tags, notes, and join dates so the dashboard matches how you actually organize people.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-red" id="gallery">
+    <div class="container">
+      <div class="section-label fade-in-scroll">See it in action</div>
+      <h2 class="section-title fade-in-scroll">Built to look good while doing the boring work.</h2>
+      <p class="section-lead fade-in-scroll">Dark app UI, red accents, and charts that actually update when you change a filter.</p>
+
+      <div class="gallery">
+        <div class="gallery-track">
+          <figure class="shot slide-in-bottom delay-1">
+            <img src="assets/shot-main.png" alt="Kleos main dashboard showing creator cards with subscriber counts and activity sparklines" >
+            <figcaption>Main dashboard</figcaption>
+          </figure>
+          <figure class="shot slide-in-bottom delay-2">
+            <img src="assets/shot-history.png" alt="Kleos media history window showing a creator's uploaded videos and verification status" >
+            <figcaption>Media history</figcaption>
+          </figure>
+          <figure class="shot slide-in-bottom delay-3">
+            <img src="assets/shot-timeline.png" alt="Kleos timeline chart showing view trajectory for a single creator" >
+            <figcaption>Per-creator timeline</figcaption>
+          </figure>
+          <figure class="shot slide-in-bottom delay-1">
+            <img src="assets/shot-uploads.png" alt="Kleos upload activity bar chart showing monthly uploads over time" >
+            <figcaption>Upload activity</figcaption>
+          </figure>
+          <figure class="shot slide-in-bottom delay-2">
+            <img src="assets/shot-global.png" alt="Kleos global leaderboard chart comparing multiple creators" >
+            <figcaption>Global leaderboard</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="steps">
+    <div class="container">
+      <div class="section-label fade-in-scroll">How it works</div>
+      <h2 class="section-title fade-in-scroll">Three steps to a working dashboard.</h2>
+
+      <div class="steps-grid">
+        <div class="step slide-in-bottom delay-1">
+          <div class="step-num">01</div>
+          <h3>Add a profile</h3>
+          <p>Create a community profile, add your roles, then paste in YouTube and Twitch channel links for each creator.</p>
+        </div>
+        <div class="step slide-in-bottom delay-2">
+          <div class="step-num">02</div>
+          <h3>Fetch data</h3>
+          <p>Kleos pulls public metadata from YouTube and Twitch in the background. Thumbnails and stats are cached locally.</p>
+        </div>
+        <div class="step slide-in-bottom delay-3">
+          <div class="step-num">03</div>
+          <h3>Verify and report</h3>
+          <p>Mark which content counts for your community, then generate leaderboards, timeline charts, or HTML exports.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark" id="get">
+    <div class="container get-inner">
+      <h2 class="fade-in-scroll">Get Kleos today.</h2>
+      <p class="fade-in-scroll">Free, open-source, and ready for Windows. Want to run it from source? The README has you covered.</p>
+      <div class="get-actions fade-in-scroll">
+        <a class="btn btn-light btn-lg" href="https://github.com/ThoriaDevelopment/Kleos/releases">Download latest release</a>
+        <a class="btn btn-outline-light" href="https://github.com/ThoriaDevelopment/Kleos/blob/main/USERMANUAL.md" target="_blank" rel="noopener">Read the user manual</a>
+      </div>
+      <p class="get-meta fade-in-scroll">Latest version: <a href="https://github.com/ThoriaDevelopment/Kleos/releases">see releases</a></p>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-label fade-in-scroll">Questions</div>
+      <h2 class="section-title fade-in-scroll">FAQ</h2>
+
+      <div class="faq-list">
+        <div class="faq-item slide-in-bottom delay-1">
+          <button class="faq-summary" type="button" aria-expanded="false">Is Kleos really free?</button>
+          <div class="faq-answer">
+            <p>Yes. Kleos is MIT licensed and free to use, modify, or redistribute. You only pay for your own API usage if you hit YouTube or Twitch rate limits at scale, which most small communities never do.</p>
+          </div>
+        </div>
+        <div class="faq-item slide-in-bottom delay-2">
+          <button class="faq-summary" type="button" aria-expanded="false">Do I need API keys?</button>
+          <div class="faq-answer">
+            <p>You need a YouTube Data API v3 key and Twitch Client ID/Secret to fetch data. AI verification is optional and needs an Anthropic or Gemini key only if you use that feature. Keyword verification needs no API at all.</p>
+          </div>
+        </div>
+        <div class="faq-item slide-in-bottom delay-3">
+          <button class="faq-summary" type="button" aria-expanded="false">Does Kleos work on Mac or Linux?</button>
+          <div class="faq-answer">
+            <p>The installer is Windows only, but the source runs on any platform that supports Python 3.12+ and PyQt6. macOS and Linux users can run it from source today.</p>
+          </div>
+        </div>
+        <div class="faq-item slide-in-bottom delay-1">
+          <button class="faq-summary" type="button" aria-expanded="false">Where is my data stored?</button>
+          <div class="faq-answer">
+            <p>Locally on your machine in an SQLite file under your user data directory. No account, no cloud sync, no telemetry. Your creator data stays yours.</p>
+          </div>
+        </div>
+        <div class="faq-item slide-in-bottom delay-2">
+          <button class="faq-summary" type="button" aria-expanded="false">Who built Kleos?</button>
+          <div class="faq-answer">
+            <p>Kleos was built by <a href="https://thoria.fyi">Thoria</a>, a server administrator and media manager who got tired of tracking creators in spreadsheets. It is maintained on <a href="https://github.com/ThoriaDevelopment/Kleos" target="_blank" rel="noopener">GitHub</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="assets/kleos-icon.png" alt="" width="24" height="24">
+        <span>Kleos</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/ThoriaDevelopment/Kleos" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/ThoriaDevelopment/Kleos/releases" target="_blank" rel="noopener">Releases</a>
+        <a href="https://github.com/ThoriaDevelopment/Kleos/blob/main/USERMANUAL.md" target="_blank" rel="noopener">User manual</a>
+        <a href="https://thoria.fyi">Portfolio</a>
+        <a href="https://youtube.com/@inrisings" target="_blank" rel="noopener">YouTube</a>
+        <button class="copy-discord" data-copy="@inrising" type="button" aria-label="Copy Discord username @inrising to clipboard">Discord @inrising</button>
+        <a href="mailto:officialthoria@gmail.com">Email</a>
+      </div>
+      <p class="footer-copy">Open source under the MIT License. &copy; 2026 Thoria.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Copied to clipboard</div>
+
+  <script src="assets/kleos.js"></script>
+</body>
+</html>
